@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<div id="mainApp" />
 <button id="test">Load</button>
 
 </body>

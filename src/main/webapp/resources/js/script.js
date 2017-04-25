@@ -6,6 +6,10 @@ $('document').ready(function(){
             });
         });
 
+        var DepartmetList = (function () {
+           $.get("")
+
+        })
     /*$('body').append('<a href ="http://google.com">Jump to google< />');
     var markers = 1;*/
 });

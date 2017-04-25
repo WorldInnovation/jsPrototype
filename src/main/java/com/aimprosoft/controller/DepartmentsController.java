@@ -26,7 +26,7 @@ public class DepartmentsController extends ExceptionHandlingController {
         model.addAttribute("departments", departments);
         return "start";
     }
-    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    @RequestMapping(value = "/departments", method = RequestMethod.GET)
     public String printWelcome(){
         return "start";
     }
