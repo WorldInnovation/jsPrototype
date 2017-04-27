@@ -19,18 +19,29 @@ public class DepartmentsController extends ExceptionHandlingController {
     @Autowired
     private DepartmentService departmentService;
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+/*    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String getUsers(@RequestBody  Model model) throws DaoExp {
         List<Department> departments;
         departments = departmentService.getAll();
         model.addAttribute("departments", departments);
         return "start";
-    }
-    @RequestMapping(value = "/departments", method = RequestMethod.GET)
+    }*/
+    @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome(){
         return "start";
     }
 
+    @RequestMapping(value = "/depSave", method = RequestMethod.POST)
+    public String depSave(Department department, Model model) throws DaoExp {
+        try {
+            departmentService.saveOrUpdateDepartment(department);
+            model.addAttribute("department", department);
+            return "redirect:/";
+        } catch (ValidateExp exp) {
+            model.addAttribute("errorMap", exp.getErrorMap());
+            return "/";
+        }
+    }
     @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
     @ResponseBody
     public Set<String> ajaxTest() {

@@ -1,10 +1,52 @@
 $('document').ready(function(){
+    //create xmlHttp
+    var xmlHttp = false;
+    /*@cc_on @*/
+    /*@if (@_jscript_version >= 5)
+     try {
+     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+     } catch (e) {
+     try {
+     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+     } catch (e2) {
+     xmlHttp = false;
+     }
+     }
+     @end @*/
+
+    if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+        xmlHttp = new XMLHttpRequest();
+    }
+    function updatePage() {
+        if (xmlHttp.readyState == 4) {
+            var response = xmlHttp.responseText;
+            document.getElementById("zipCode").value = response;
+
+        }
+    }
 
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
                 alert("Data: " + data + "\nStatus: " + status);
             });
         });
+    $("#submit").on('click', function(){
+        // send ajax
+        $.ajax({
+            url: '/ajaxtest',
+            type : "POST",
+            dataType : 'json',
+            data : $("#depSave").serialize(), // post data || get data
+            success : function(result) {
+                // you can see the result from the console
+                // tab of the developer tools
+                console.log(result);
+            },
+            error: function(xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        })
+    });
 
         var DepartmetList = (function () {
            $.get("")
