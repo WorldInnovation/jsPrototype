@@ -25,7 +25,7 @@ public class Department implements Serializable {
     @CheckWith(value = OvalValidDepName.class, message = " name exist")
     private String name;
 
-    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+  /*  @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {
@@ -34,7 +34,7 @@ public class Department implements Serializable {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-    }
+    }*/
 
     public Long getId() {
         return id;

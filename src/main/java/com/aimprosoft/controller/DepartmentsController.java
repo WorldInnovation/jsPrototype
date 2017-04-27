@@ -30,16 +30,18 @@ public class DepartmentsController extends ExceptionHandlingController {
 public String depList(){
 
 }*/
-@ResponseBody
-@RequestMapping(value = "/deps", method = RequestMethod.GET)
-public List<Department> getUsers() throws DaoExp {
-    List<Department> departments;
-    departments = departmentService.getAll();
 
-    return departments;
-}
+    @RequestMapping(value = "/deps", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Department> getUsers() throws DaoExp {
+        List<Department> departments;
+        departments = departmentService.getAll();
+
+        return departments;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String printWelcome(){
+    public String printWelcome() {
         return "start";
     }
 
@@ -54,6 +56,7 @@ public List<Department> getUsers() throws DaoExp {
             return "/";
         }
     }
+
     @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
     @ResponseBody
     public String ajaxTest() throws DaoExp {

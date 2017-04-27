@@ -24,7 +24,7 @@ $('document').ready(function(){
 
         }
     }
-    var myget = "";
+/*    var myget = "";
     $('#getDep').click(function(){
         $.ajax({
             url: '/depList',
@@ -48,18 +48,30 @@ $('document').ready(function(){
             } // End of success function of ajax form
         }); // End of ajax call
 
-    });
+    });*/
 
         $("#test").click(function(){
-            $.get("/deps",function(data,status){
+            $.get("/ajaxtest",function(data,status){
                 $('#mainApp').append('<br/>' + data + ' : ' + status);
                 //alert("Data: " + data + "\nStatus: " + status);
             });
         });
+        //---get departments
+        $("#getDeps").click(function () {
+            $.get("/deps",function (data,status) {
+                $('#mainApp').append('<br/>' + 'Status: '+ status);
+                $.each(data, function(k, v) {
+                    $.each(v, function(key, value) {
+                        $('#mainApp').append('<br/>' + key + ' : ' + value);
+                    })
+                })
+            })
+        })
+    //---
     $("#submit").on('click', function(){
         // send ajax
         $.ajax({
-            url: '/ajaxtest',
+            url: '/depSave',
             type : "POST",
             dataType : 'json',
             data : $("#depSave").serialize(), // post data || get data

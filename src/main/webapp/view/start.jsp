@@ -12,7 +12,7 @@
 <body>
 <div id="mainApp" />
 <button id="test">Load</button>
-<button id="getDep">getDepartments</button>
+<button id="getDeps">getDepartments</button>
 <form id= "depSave" action="depSave" method="post">
     <div>
         <label>
@@ -25,43 +25,5 @@
     </div>
 </form>
 
-<table>
-    <caption>
-        <span class="titleTable">Departments </span>
-    </caption>
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Select</td>
-        <td>Edit</td>
-        <td>Delete</td>
-    </tr>
-    <tr>
-        <c:forEach items="${departments}" var="dep">
-    <tr>
-        <td>${dep.id}</td>
-        <td>${dep.name}</td>
-        <td>
-            <form action="employeesList" method="get">
-                <input type="hidden" name="depID" value="${dep.id}">
-                <input type="submit" value="Select">
-            </form>
-        </td>
-
-        <td>
-            <form action="editDepartment" method="get">
-                <input type="hidden" name="depID" value="${dep.id}">
-                <input type="submit" value="Edit"></form>
-        </td>
-
-        <td>
-            <form action="depDelete" method="post">
-                <input type="hidden" name="depID" value="${dep.id}">
-                <input type="submit" value="Delete"></form>
-        </td>
-
-    </tr>
-    </c:forEach>
-</table>
 </body>
 </html>
