@@ -24,10 +24,36 @@ $('document').ready(function(){
 
         }
     }
+    var myget = "";
+    $('#getDep').click(function(){
+        $.ajax({
+            url: '/depList',
+            type:'GET',
+            dataType: 'json',
+            error: function(){
+                $('#mainApp').append('<p>depList not call</p>');
+            },
+
+
+            success:function(data){
+                    $('#mainApp').append('<p>hello world</p>');
+                    alert("Success!");
+                    $.each(departments, function(k, v) {
+                        $.each(v, function(key, value) {
+                            $('#mainApp').append('<br/>' + key + ' : ' + value);
+                        })
+                    })
+
+
+            } // End of success function of ajax form
+        }); // End of ajax call
+
+    });
 
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
-                alert("Data: " + data + "\nStatus: " + status);
+                $('#mainApp').append('<br/>' + data + ' : ' + status);
+                //alert("Data: " + data + "\nStatus: " + status);
             });
         });
     $("#submit").on('click', function(){

@@ -12,6 +12,7 @@
 <body>
 <div id="mainApp" />
 <button id="test">Load</button>
+<button id="getDep">getDepartments</button>
 <form id= "depSave" action="depSave" method="post">
     <div>
         <label>

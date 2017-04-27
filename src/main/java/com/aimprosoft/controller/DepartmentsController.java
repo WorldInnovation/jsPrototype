@@ -26,6 +26,10 @@ public class DepartmentsController extends ExceptionHandlingController {
         model.addAttribute("departments", departments);
         return "start";
     }*/
+/*@RequestMapping(value = "/depList", method = RequestMethod.GET)
+public String depList(){
+
+}*/
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome(){
         return "start";
@@ -44,14 +48,21 @@ public class DepartmentsController extends ExceptionHandlingController {
     }
     @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
     @ResponseBody
-    public Set<String> ajaxTest() {
-        Set<String> records = new HashSet<String>();
-        records.add("Record #1");
-        records.add("Record #2");
-
-        return records;
+    public String ajaxTest() throws DaoExp {
+ /*       List<Department> departments=  departmentService.getAll();
+        return departments;*/
+        String departments = "test responce";
+        // List<Department> departments=  departmentService.getAll();
+        return departments;
     }
 
+/*    @RequestMapping(value = "/depList", method = RequestMethod.GET)
+    @ResponseBody
+    public String ajaxTest() throws DaoExp {
+        String departments = "test responce";
+        // List<Department> departments=  departmentService.getAll();
+        return departments;
+    }*/
 /*    @RequestMapping(value = "/editDepartment", method = RequestMethod.GET)
     public String editDepartment(@RequestParam(required = false) Long depID, Model model) throws DaoExp {
         Department department = null;
