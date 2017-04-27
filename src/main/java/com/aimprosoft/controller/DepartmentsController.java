@@ -8,11 +8,11 @@ import com.aimprosoft.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Controller
 public class DepartmentsController extends ExceptionHandlingController {
@@ -30,6 +30,14 @@ public class DepartmentsController extends ExceptionHandlingController {
 public String depList(){
 
 }*/
+@ResponseBody
+@RequestMapping(value = "/deps", method = RequestMethod.GET)
+public List<Department> getUsers() throws DaoExp {
+    List<Department> departments;
+    departments = departmentService.getAll();
+
+    return departments;
+}
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome(){
         return "start";

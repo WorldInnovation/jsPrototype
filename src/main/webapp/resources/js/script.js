@@ -51,7 +51,7 @@ $('document').ready(function(){
     });
 
         $("#test").click(function(){
-            $.get("/ajaxtest",function(data,status){
+            $.get("/deps",function(data,status){
                 $('#mainApp').append('<br/>' + data + ' : ' + status);
                 //alert("Data: " + data + "\nStatus: " + status);
             });
