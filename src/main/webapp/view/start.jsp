@@ -1,7 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ page buffer="8192kb" %>
 <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script type="text/javascript" src="/resources/js/jquery.jqGrid.js"></script>
 <script type="text/javascript" src="/resources/js/script.js"></script>
 
 <html>
@@ -24,6 +26,20 @@
         <input type="submit" value="OK">
     </div>
 </form>
-
+<button id="getDepTable">TableGet</button>
+<%--<table>
+    <caption>
+        <span class="titleTable">Departments </span>
+    </caption>
+    <tr>
+        <td>ID</td>
+        <td>Name</td>
+        <td>Select</td>
+        <td>Edit</td>
+        <td>Delete</td>
+    </tr>
+</table>--%>
+<table id="tableDep"></table>
+<script></script>
 </body>
 </html>

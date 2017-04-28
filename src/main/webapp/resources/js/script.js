@@ -1,54 +1,4 @@
 $('document').ready(function(){
-    //create xmlHttp
-    var xmlHttp = false;
-    /*@cc_on @*/
-    /*@if (@_jscript_version >= 5)
-     try {
-     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-     } catch (e) {
-     try {
-     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-     } catch (e2) {
-     xmlHttp = false;
-     }
-     }
-     @end @*/
-
-    if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
-        xmlHttp = new XMLHttpRequest();
-    }
-    function updatePage() {
-        if (xmlHttp.readyState == 4) {
-            var response = xmlHttp.responseText;
-            document.getElementById("zipCode").value = response;
-
-        }
-    }
-/*    var myget = "";
-    $('#getDep').click(function(){
-        $.ajax({
-            url: '/depList',
-            type:'GET',
-            dataType: 'json',
-            error: function(){
-                $('#mainApp').append('<p>depList not call</p>');
-            },
-
-
-            success:function(data){
-                    $('#mainApp').append('<p>hello world</p>');
-                    alert("Success!");
-                    $.each(departments, function(k, v) {
-                        $.each(v, function(key, value) {
-                            $('#mainApp').append('<br/>' + key + ' : ' + value);
-                        })
-                    })
-
-
-            } // End of success function of ajax form
-        }); // End of ajax call
-
-    });*/
 
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
@@ -56,18 +6,21 @@ $('document').ready(function(){
                 //alert("Data: " + data + "\nStatus: " + status);
             });
         });
+
         //---get departments
         $("#getDeps").click(function () {
-            $.get("/deps",function (data,status) {
+            $.get("/deps",function (data,status) {//
                 $('#mainApp').append('<br/>' + 'Status: '+ status);
                 $.each(data, function(k, v) {
                     $.each(v, function(key, value) {
-                        $('#mainApp').append('<br/>' + key + ' : ' + value);
+                        if (key == 'id') $('#mainApp').append('<br/>'  + value);
+                            if(key == 'name') $('#mainApp').append(' '  + value);
                     })
                 })
             })
         })
     //---
+
     $("#submit").on('click', function(){
         // send ajax
         $.ajax({
@@ -85,6 +38,57 @@ $('document').ready(function(){
             }
         })
     });
+        //----------------------
+ /*
+        * $.each(data, function(k, v) {
+         $.each(v, function(key, value) {
+         $('#mainApp').append('<br/>' + key + ' : ' + value);
+
+         })
+         })
+//--------------------------
+
+
+        * */
+    function arrayToTable(tableData) {
+        var table = $('<table></table>');
+
+        $(tableData).each(function (i, rowData) {
+            var row = $('<tr></tr>');
+            $(rowData).each(function (j, cellData) {
+                row.append($('<td>'+cellData+'</td>'));
+            });
+            table.append(row);
+        });
+        return table;
+    }
+
+/*    $('body').append(arrayToTable([
+        ["John","Slegers",34],
+        ["Tom","Stevens",25],
+        ["An","Davies",28],
+        ["Miet","Hansen",42],
+        ["Eli","Morris",18]
+    ]));*/
+    ///---table
+  $("#getDepTable").on('click', function () {
+      $.ajax({
+          type: "GET",
+          url: "/deps",
+          dataType: 'json',
+          success: function (data) {
+              if(data){
+
+              $.each(data, function(k, v) {
+                  $.each(v, function(key, value) {
+                      if (key == 'id') $('#mainApp').append('<br/>'  + value);
+                      if(key == 'name') $('#mainApp').append(' '  + value);
+                  })
+              })
+            }
+          }
+      });
+        });
 
         var DepartmetList = (function () {
            $.get("")
@@ -94,33 +98,4 @@ $('document').ready(function(){
     var markers = 1;*/
 });
 
-/*
-$.ajax({
 
-    type: "POST",
-    url: "/url",
-    data: markers,
-    contentType: "application/json; charset=utf-8",
-    dataType: "json",
-    success: function(data){alert(data);},
-    failure: function(errMsg) {
-        alert(errMsg);
-    }
-    /!*$(function() {
-     $("#myForm").submit(function() {
-     var formData = {
-     "field1":$("#field1").val()
-     , "field2":$("#field2").val()
-     };
-     $.ajax({
-     url:'dataparser.php'
-     , type:'POST'
-     , data:'jsonData=' + $.toJSON(formData)
-     , success: function(res) {
-     alert(res);
-     }
-     });
-     return false;
-     });
-     });*!/
-});*/
