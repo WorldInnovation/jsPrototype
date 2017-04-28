@@ -34,8 +34,8 @@ public String depList(){
     @RequestMapping(value = "/deps", method = RequestMethod.GET)
     @ResponseBody
     public List<Department> getUsers() throws DaoExp {
-        List<Department> departments;
-        departments = departmentService.getAll();
+
+        List<Department>  departments = departmentService.getAll();
 
         return departments;
     }
@@ -45,15 +45,16 @@ public String depList(){
         return "start";
     }
 
+    @ResponseBody
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)
-    public String depSave(Department department, Model model) throws DaoExp {
+    public Department depSave(Department department, Model model) throws DaoExp {
         try {
             departmentService.saveOrUpdateDepartment(department);
             model.addAttribute("department", department);
-            return "redirect:/";
+            return department;
         } catch (ValidateExp exp) {
             model.addAttribute("errorMap", exp.getErrorMap());
-            return "/";
+            return null;
         }
     }
 

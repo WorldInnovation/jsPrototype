@@ -23,7 +23,7 @@
         </label>
     </div>
     <div>
-        <input type="submit" value="OK">
+        <input id="submit" value="OK">
     </div>
 </form>
 <button id="getDepTable">TableGet</button>

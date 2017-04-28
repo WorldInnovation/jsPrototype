@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "Department")
-public class Department implements Serializable {
+public class Department {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,7 +25,7 @@ public class Department implements Serializable {
     @CheckWith(value = OvalValidDepName.class, message = " name exist")
     private String name;
 
-/*   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+/*   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
     public List<Employee> getEmployees() {
@@ -34,7 +34,7 @@ public class Department implements Serializable {
 
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-    }*/
+    } */
 
     public Long getId() {
         return id;
@@ -51,6 +51,8 @@ public class Department implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
