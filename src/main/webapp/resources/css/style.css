@@ -13,17 +13,13 @@ header, main, footer {
     color: blue;
     font-size:15px
 }
-.titleTable{
-    color:blue;
-    font-size:20px
-}
 
-table {
-    border: 3px solid black;
+/*table {
+    border: 3px solid ;
     border-collapse: collapse;
     margin-left: 50px;
 
-}
+}*/
 td {
     padding: 5px; /* Поля вокруг текста */
     border: 1px solid #78786a; /* Граница вокруг ячеек */

@@ -16,13 +16,12 @@
 <body>
 <header>
     <h1>Wellcome</h1>
-    <p>Departments</p>
+    <p>to Departments</p>
 </header>
 <main id="content" class="wrapper box">
     <article id="articleFormLoad">
-        <h2>Edit Departments:</h2>
         <form id="depSave" action="depSave" method="post">
-                    <input type="text" name="name" pattern="[A-Za-z]{3,}"
+                    <input type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}"
                            value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/><br>
                     <input type="hidden" name="id" value="${depId}"/>
         </form>

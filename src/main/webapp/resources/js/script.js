@@ -52,20 +52,34 @@ $('document').ready(function(){
     }
 
     ///---table
-  $("#getDepTable").on('click', function () {
+  $("#getDepTable").click( function () {
       $.ajax({
           type: "GET",
           url: "/deps",
           dataType: 'json',
           success: function (data) {
               if(data){
-                        $('#content').append('<h2>' + 'Departments' + '</h2>');
-                  var table = $('<table>' + '</table>');
-              $.each(data, function(k, v) {
+                  var table = $('<table>' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
                   var row = $('<tr></tr>');
+                  row.append('<td>' + "id" + '</td>');
+                  row.append('<td>' + "name" + '</td>');
+                  row.append('<td>' + "select" + '</td>');
+                  row.append('<td>' + "edit" + '</td>');
+                  row.append('<td>' + "delete" + '</td>');
+                  table.append(row);
+                  $.each(data, function(k, v) {
+                      row = $('<tr></tr>');
                   $.each(v, function(key, value) {
-                      if (key == 'id') row.append('<td>' + value + '</td>');
-                      if (key == 'name') row.append('<td>' + value + '</td>');
+                      var idDep;
+                      if (key == 'id') {idDep = value;
+                          row.append('<td>' + value + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                      }
+                      if (key == 'name') {
+                          row.append('<td>' + value + '</td>');
+                          row.append('<td>' + '<input type="submit" value="Select">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                          row.append('<td>' + '<input type="submit" value="Edit">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                          row.append('<td>' + '<input type="submit" value="Delete">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                      }
                   })
                   table.append(row);
               })
