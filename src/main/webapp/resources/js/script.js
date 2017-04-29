@@ -51,13 +51,6 @@ $('document').ready(function(){
         return table;
     }
 
-/*    $('body').append(arrayToTable([
-        ["John","Slegers",34],
-        ["Tom","Stevens",25],
-        ["An","Davies",28],
-        ["Miet","Hansen",42],
-        ["Eli","Morris",18]
-    ]));*/
     ///---table
   $("#getDepTable").on('click', function () {
       $.ajax({
@@ -66,13 +59,17 @@ $('document').ready(function(){
           dataType: 'json',
           success: function (data) {
               if(data){
-
+                        $('#content').append('<h2>' + 'Departments' + '</h2>');
+                  var table = $('<table>' + '</table>');
               $.each(data, function(k, v) {
+                  var row = $('<tr></tr>');
                   $.each(v, function(key, value) {
-                      if (key == 'id') $('#content').append('<br/>'  + value);
-                      if(key == 'name') $('#content').append(' '  + value);
+                      if (key == 'id') row.append('<td>' + value + '</td>');
+                      if (key == 'name') row.append('<td>' + value + '</td>');
                   })
+                  table.append(row);
               })
+                  $('#content').append(table);
             }
           }
       });

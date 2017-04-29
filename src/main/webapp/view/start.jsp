@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page buffer="8192kb" %>
+
+<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/jquery.jqGrid.js"></script>
@@ -21,11 +23,11 @@
         <h2>Edit Departments:</h2>
         <form id="depSave" action="depSave" method="post">
                     <input type="text" name="name" pattern="[A-Za-z]{3,}"
-                           value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/>
+                           value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/><br>
                     <input type="hidden" name="id" value="${depId}"/>
-                <input id="butSaveDep" value="OK">
         </form>
-        <button id="getDepTable">TableGet</button>
+        <input id="butSaveDep" type="submit" value="OK">
+        <input id="getDepTable" type="submit" value="TableGet" >
     </article>
     <article id="articleTable">
         <table id="tableDep"></table>
