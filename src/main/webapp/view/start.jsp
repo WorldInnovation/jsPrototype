@@ -32,7 +32,7 @@
         <table id="tableDep"></table>
     </article>
 </main>
-
+<script>iventCheck();</script>
 <footer>©copyright 2017</footer>
 </body>
 </html>

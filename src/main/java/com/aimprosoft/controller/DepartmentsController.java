@@ -57,7 +57,13 @@ public String depList(){
             return null;
         }
     }
-
+    @ResponseBody
+    @RequestMapping(value = "/deleteDep", method = RequestMethod.POST)
+    public String depDelete( Long depId) throws DaoExp {
+        Department department = departmentService.getDepartmentById(depId);
+        departmentService.deleteDepartment(depId);
+        return "depId";
+    }
     @RequestMapping(value = "/ajaxtest", method = RequestMethod.GET)
     @ResponseBody
     public String ajaxTest() throws DaoExp {
@@ -84,12 +90,7 @@ public String depList(){
         return "editDep";
     }
 
-    @RequestMapping(value = "/depDelete", method = RequestMethod.POST)
-    public String depDelete(@RequestParam("depID") Long depId) throws DaoExp {
-        Department department = departmentService.getDepartmentById(depId);
-        departmentService.deleteDepartment(depId);
-        return "redirect:/";
-    }
+
 
     @RequestMapping(value = "/depSave", method = RequestMethod.POST)
     public String depSave(Department department, Model model) throws DaoExp {
