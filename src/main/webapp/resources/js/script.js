@@ -2,7 +2,7 @@ $('document').ready(function(){
 
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
-                $('#mainApp').append('<br/>' + data + ' : ' + status);
+                $('#content').append('<br/>' + data + ' : ' + status);
                 //alert("Data: " + data + "\nStatus: " + status);
             });
         });
@@ -10,19 +10,18 @@ $('document').ready(function(){
         //---get departments
         $("#getDeps").click(function () {
             $.get("/deps",function (data,status) {//
-                $('#mainApp').append('<br/>' + 'Status: '+ status);
+                $('#content').append('<br/>' + 'Status: '+ status);
                 $.each(data, function(k, v) {
                     $.each(v, function(key, value) {
-                        if (key == 'id') $('#mainApp').append('<br/>'  + value);
-                            if(key == 'name') $('#mainApp').append(' '  + value);
+                        if (key == 'id') $('#content').append('<br/>'  + value);
+                            if(key == 'name') $('#content').append(' '  + value);
                     })
                 })
             })
         })
     //---
 
-    $("#submit").on('click', function(){
-        // send ajax
+    $("#butSaveDep").click( function(){
         $.ajax({
             url: '/depSave',
             type : "POST",
@@ -38,18 +37,7 @@ $('document').ready(function(){
             }
         })
     });
-        //----------------------
- /*
-        * $.each(data, function(k, v) {
-         $.each(v, function(key, value) {
-         $('#mainApp').append('<br/>' + key + ' : ' + value);
 
-         })
-         })
-//--------------------------
-
-
-        * */
     function arrayToTable(tableData) {
         var table = $('<table></table>');
 
@@ -81,8 +69,8 @@ $('document').ready(function(){
 
               $.each(data, function(k, v) {
                   $.each(v, function(key, value) {
-                      if (key == 'id') $('#mainApp').append('<br/>'  + value);
-                      if(key == 'name') $('#mainApp').append(' '  + value);
+                      if (key == 'id') $('#content').append('<br/>'  + value);
+                      if(key == 'name') $('#content').append(' '  + value);
                   })
               })
             }

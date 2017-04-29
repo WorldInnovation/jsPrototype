@@ -1,3 +1,14 @@
+body{
+    font: 52.5%/1.6 Verdana, Tahoma, sans-serif;
+    color: #444444;
+}
+h1, h2 {
+    color: #ff6600;
+}
+header, main, footer {
+    margin: 30px auto;
+    width: 600px;
+}
 .my-text {
     color: blue;
     font-size:15px

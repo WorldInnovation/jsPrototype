@@ -12,34 +12,26 @@
 </head>
 
 <body>
-<div id="mainApp" />
-<button id="test">Load</button>
-<button id="getDeps">getDepartments</button>
-<form id= "depSave" action="depSave" method="post">
-    <div>
-        <label>
-            <input type="text" name="name" pattern="[A-Za-z]{3,}" value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/>
-            <input type="hidden" name="id" value="${depId}"/>
-        </label>
-    </div>
-    <div>
-        <input id="submit" value="OK">
-    </div>
-</form>
-<button id="getDepTable">TableGet</button>
-<%--<table>
-    <caption>
-        <span class="titleTable">Departments </span>
-    </caption>
-    <tr>
-        <td>ID</td>
-        <td>Name</td>
-        <td>Select</td>
-        <td>Edit</td>
-        <td>Delete</td>
-    </tr>
-</table>--%>
-<table id="tableDep"></table>
-<script></script>
+<header>
+    <h1>Wellcome</h1>
+    <p>Departments</p>
+</header>
+<main id="content" class="wrapper box">
+    <article id="articleFormLoad">
+        <h2>Edit Departments:</h2>
+        <form id="depSave" action="depSave" method="post">
+                    <input type="text" name="name" pattern="[A-Za-z]{3,}"
+                           value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/>
+                    <input type="hidden" name="id" value="${depId}"/>
+                <input id="butSaveDep" value="OK">
+        </form>
+        <button id="getDepTable">TableGet</button>
+    </article>
+    <article id="articleTable">
+        <table id="tableDep"></table>
+    </article>
+</main>
+
+<footer>©copyright 2017</footer>
 </body>
 </html>
