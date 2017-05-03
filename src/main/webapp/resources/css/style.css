@@ -20,10 +20,16 @@ header, main, footer {
     margin-left: 50px;
 
 }*/
+
 td {
     padding: 5px; /* Поля вокруг текста */
     border: 1px solid #78786a; /* Граница вокруг ячеек */
     text-align: right;
+    cursor: pointer;
+}
+
+td:hover {
+    background: #ff6600;
 }
 
 caption{

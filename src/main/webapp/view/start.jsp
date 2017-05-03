@@ -29,7 +29,7 @@
         <input id="getDepTable" type="submit" value="TableGet" >
     </article>
     <article id="articleTable">
-        <table id="tableDep"></table>
+        <table id="depTable"></table>
     </article>
 </main>
 <script>iventCheck();</script>

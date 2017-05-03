@@ -2,15 +2,8 @@ $('document').ready(function(){
     $("#table").click(function () {
        alert();
     });
-/*    function iventCheck() {
-        if ($('#input').val() != '')
 
-        $('#button').removeAttr('disabled');
 
-    else
-
-        $('#button').attr('disabled','disable');
-    }*/
     //---------------
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
@@ -49,7 +42,17 @@ $('document').ready(function(){
             }
         })
     });
+        var grid = document.getElementById('depTable');
 
+     grid.onclick = function(e) {
+
+     if (e.target.tagName != 'TD')return;
+     alert(e.target.getAttribute('data-action'));//show button type
+     alert(e.target.cellIndex);//column index
+
+     return;
+
+     }
     function arrayToTable(tableData) {
         var table = $('<table></table>');
 
@@ -105,13 +108,13 @@ $('document').ready(function(){
     
     var depTable = (function(data){
 
-        var table = $('<table>' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
+        var table = $('<table id="depTable">' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
         var row = $('<tr></tr>');
-        row.append('<td>' + " id " + '</td>');
-        row.append('<td>' + " name " + '</td>');
-        row.append('<td>' + "select" + '</td>');
-        row.append('<td>' + "edit" + '</td>');
-        row.append('<td>' + "delete" + '</td>');
+        row.append('<th>' + " id " + '</th>');
+        row.append('<th>' + " name " + '</th>');
+        row.append('<th>' + "select" + '</th>');
+        row.append('<th>' + "edit" + '</th>');
+        row.append('<th>' + "delete" + '</th>');
         table.append(row);
         $.each(data, function (k, v) {
             row = $('<tr></tr>');
