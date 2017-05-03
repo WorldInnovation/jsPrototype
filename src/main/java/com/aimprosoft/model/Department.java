@@ -1,6 +1,8 @@
 package com.aimprosoft.model;
 
 import com.aimprosoft.util.OvalValidDepName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.oval.constraint.CheckWith;
 import net.sf.oval.constraint.MaxLength;
 import net.sf.oval.constraint.MinLength;
@@ -25,16 +27,18 @@ public class Department {
     @CheckWith(value = OvalValidDepName.class, message = " name exist")
     private String name;
 
-/*   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
+    @JsonIgnore
     public List<Employee> getEmployees() {
         return employees;
     }
-
+    @JsonProperty
     public void setEmployees(List<Employee> employees) {
         this.employees = employees;
-    } */
+    }
 
     public Long getId() {
         return id;
