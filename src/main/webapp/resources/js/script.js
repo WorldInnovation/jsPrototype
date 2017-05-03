@@ -1,8 +1,4 @@
 $('document').ready(function(){
-    $("#table").click(function () {
-       alert();
-    });
-
 
     //---------------
         $("#test").click(function(){
@@ -42,17 +38,16 @@ $('document').ready(function(){
             }
         })
     });
-        var grid = document.getElementById('depTable');
+    $("body").on("click", "#depTable td", function (e) {
+        var depID = $(this).closest('tr').attr('id');// table row ID
+        if($(this).attr('id')==="select") employeesList();
+        if($(this).attr('id')==="edit") editDepartment();
+        if($(this).attr('id')==="delete") deleteDep(depID);
 
-     grid.onclick = function(e) {
+        //alert($(this).attr('id'));// td ID
+       // alert($(this).closest('tr').attr('id')); // table row ID
+    });
 
-     if (e.target.tagName != 'TD')return;
-     alert(e.target.getAttribute('data-action'));//show button type
-     alert(e.target.cellIndex);//column index
-
-     return;
-
-     }
     function arrayToTable(tableData) {
         var table = $('<table></table>');
 
@@ -65,12 +60,15 @@ $('document').ready(function(){
         });
         return table;
     }
-    var deleteDep = function (){
+    var deleteDep = function (depID){
+        var data = new FormData();
+            data.append( key = 'depID', value = depID );
+
         $.ajax({
             url: '/deleteDep',
             type : "POST",
             dataType : 'json',
-            data : $("#deleteDep").serialize(), // post data || get data
+            data : { depId : depID }, // post data || get data
             success : function(result) {
                 // you can see the result from the console
                 // tab of the developer tools
@@ -84,23 +82,9 @@ $('document').ready(function(){
     }
 //bottons
 
-    $("#deleteDep").click(function () {
-        $.ajax({
-            url: '/deleteDep',
-            type : "POST",
-            dataType : 'json',
-            data : $("#deleteDep").serialize(), // post data || get data
-            success : function(result) {
-                // you can see the result from the console
-                // tab of the developer tools
-                alert("Delete complete")
-                console.log(result);
-            },
-            error: function(xhr, resp, text) {
-                console.log(xhr, resp, text);
-            }
-        })
-    })
+  /*  $("#deleteDep").click(function () {
+        deleteDep();
+    })*/
     ///---table
   $("#getDepTable").click( function () {
             departmetList();
@@ -117,17 +101,19 @@ $('document').ready(function(){
         row.append('<th>' + "delete" + '</th>');
         table.append(row);
         $.each(data, function (k, v) {
-            row = $('<tr></tr>');
+
             $.each(v, function (key, value) {
                 var idDep;
-                if (key == 'id') {idDep = value;
+                if (key == 'id') {
+                    row = $('<tr>').attr('id', value);
+                    row.append('</tr>');
                     row.append('<td>' + value + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
                 }
                 if (key == 'name') {
                     row.append('<td>' + value + '</td>');
-                    row.append('<td>' + '<input id="selectDep" type="submit" value="select">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                    row.append('<td>' + '<input id="editDep" type="submit" value="edit"  onclick="alert() ">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                    row.append('<td>' + '<input type="submit" id="deleteDep" value="delete" onclick="alert()" >' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                    row.append('<td id="select">' + '<input id="selectDep" type="submit" value="select">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                    row.append('<td id="edit">' + '<input id="editDep" type="submit" value="edit"  >' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                    row.append('<td id="delete">' + '<input type="submit" id="deleteDep" value="delete" >' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
                 }
             });
             table.append(row);
@@ -148,7 +134,7 @@ $('document').ready(function(){
                 }
             });
 
-        })
+        });
 
 });
 

@@ -2,11 +2,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ page buffer="8192kb" %>
 
-<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+<%--<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">--%>
 <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-<script type="text/javascript" src="/resources/js/jquery.jqGrid.js"></script>
-<script type="text/javascript" src="/resources/js/script.js"></script>
+<%--<script type="text/javascript" src="/resources/js/jquery.jqGrid.js"></script>--%>
+<script type="text/javascript" src="/resources/js/script.js"> </script>
 
 <html>
 <head>
@@ -29,10 +29,12 @@
         <input id="getDepTable" type="submit" value="TableGet" >
     </article>
     <article id="articleTable">
-        <table id="depTable"></table>
+        <table id="test"></table>
     </article>
 </main>
-<script>iventCheck();</script>
+<script>
+
+</script>
 <footer>©copyright 2017</footer>
 </body>
 </html>
