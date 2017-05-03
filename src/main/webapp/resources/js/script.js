@@ -102,6 +102,36 @@ $('document').ready(function(){
   $("#getDepTable").click( function () {
             departmetList();
         });
+    
+    var depTable = (function(data){
+
+        var table = $('<table>' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
+        var row = $('<tr></tr>');
+        row.append('<td>' + " id " + '</td>');
+        row.append('<td>' + " name " + '</td>');
+        row.append('<td>' + "select" + '</td>');
+        row.append('<td>' + "edit" + '</td>');
+        row.append('<td>' + "delete" + '</td>');
+        table.append(row);
+        $.each(data, function (k, v) {
+            row = $('<tr></tr>');
+            $.each(v, function (key, value) {
+                var idDep;
+                if (key == 'id') {idDep = value;
+                    row.append('<td>' + value + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                }
+                if (key == 'name') {
+                    row.append('<td>' + value + '</td>');
+                    row.append('<td>' + '<input id="selectDep" type="submit" value="select">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                    row.append('<td>' + '<input id="editDep" type="submit" value="edit"  onclick="alert() ">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                    row.append('<td>' + '<input type="submit" id="deleteDep" value="delete" onclick="alert()" >' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
+                }
+            });
+            table.append(row);
+            
+        } );
+        $('#content').append(table);
+    });
 
         var departmetList = (function () {
             $.ajax({
@@ -110,31 +140,7 @@ $('document').ready(function(){
                 dataType: 'json',
                 success: function (data) {
                     if(data){
-                        var table = $('<table>' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
-                        var row = $('<tr></tr>');
-                        row.append('<td>' + " id " + '</td>');
-                        row.append('<td>' + " name " + '</td>');
-                        row.append('<td>' + "select" + '</td>');
-                        row.append('<td>' + "edit" + '</td>');
-                        row.append('<td>' + "delete" + '</td>');
-                        table.append(row);
-                        $.each(data, function(k, v) {
-                            row = $('<tr></tr>');
-                            $.each(v, function(key, value) {
-                                var idDep;
-                                if (key == 'id') {idDep = value;
-                                    row.append('<td>' + value + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                                }
-                                if (key == 'name') {
-                                    row.append('<td>' + value + '</td>');
-                                    row.append('<td>' + '<input id="selectDep" type="submit" value="select">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                                    row.append('<td>' + '<input id="editDep" type="submit" value="edit"  onclick="alert() ">' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                                    row.append('<td>' + '<input type="submit" id="deleteDep" value="delete" onclick="alert()" >' + '</td>' + '<input type="hidden" name="depID" value="${idDep}">');
-                                }
-                            })
-                            table.append(row);
-                        })
-                        $('#content').append(table);
+                        depTable(data);
                     }
                 }
             });
