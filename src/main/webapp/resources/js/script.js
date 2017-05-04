@@ -27,8 +27,8 @@ $('document').ready(function(){
             type : "POST",
             dataType : 'json',
             data : $("#depSave").serialize(), // post data || get data
-            success : function(result) {
-                console.log(result);
+            success : function(data) {
+                console.log(data);
             },
             error: function(xhr, resp, text) {
                 console.log(xhr, resp, text);
@@ -62,7 +62,7 @@ $('document').ready(function(){
             dataType : 'json',
             data : { depID : depID },
             success : function(result) {
-                alert("Delete complete id:" + result);
+                alert("Delete id:" + result);
                 console.log(result);
             },
             error: function(xhr, resp, text) {
@@ -77,8 +77,10 @@ $('document').ready(function(){
             type : "GET",
             dataType : 'json',
             data : { depID : depID },
-            success : function(result) {
-                console.log(result);
+            success : function(data) {
+                console.log(data);
+                $('#name').val(data.name);
+                $('#id').val(data.id);
             },
             error: function(xhr, resp, text) {
                 console.log(xhr, resp, text);
@@ -86,11 +88,16 @@ $('document').ready(function(){
         });
     }
 
+
   $("#getDepTable").click( function () {
             departmetList();
         });
 
     var depTable = (function(data){
+        //clear black
+        $('#name').val('');
+        $('#id').val('');
+        $("table").empty();
 
         var table = $('<table id="depTable">' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');
         var row = $('<tr></tr>');
