@@ -1,5 +1,7 @@
 package com.aimprosoft.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sf.oval.constraint.*;
 
 import javax.persistence.*;
@@ -44,6 +46,7 @@ public class Employee implements Serializable {
     @Email(message = "set@rightMail.format")
     private String eMail;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "depID", nullable = false)
     private Department department;
@@ -101,6 +104,7 @@ public class Employee implements Serializable {
         return department;
     }
 
+    @JsonIgnore
     public void setDepartment(Department department) {
         this.department = department;
     }
