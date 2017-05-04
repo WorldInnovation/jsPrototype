@@ -24,7 +24,6 @@
                     <input id="id" type="hidden" name="id"  value="${depId}"/>
         </form>
         <input id="butSaveDep" type="submit" value="OK">
-        <input id="getDepTable" type="submit" value="TableGet" >
     </article>
     <article id="articleTable">
         <table id="test"></table>
