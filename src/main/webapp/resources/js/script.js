@@ -4,7 +4,6 @@ $('document').ready(function(){
         $("#test").click(function(){
             $.get("/ajaxtest",function(data,status){
                 $('#content').append('<br/>' + data + ' : ' + status);
-                //alert("Data: " + data + "\nStatus: " + status);
             });
         });
 
@@ -16,10 +15,10 @@ $('document').ready(function(){
                     $.each(v, function(key, value) {
                         if (key == 'id') $('#content').append('<br/>'  + value);
                             if(key == 'name') $('#content').append(' '  + value);
-                    })
-                })
-            })
-        })
+                    });
+                });
+            });
+        });
     //---
 
     $("#butSaveDep").click( function(){
@@ -29,8 +28,6 @@ $('document').ready(function(){
             dataType : 'json',
             data : $("#depSave").serialize(), // post data || get data
             success : function(result) {
-                // you can see the result from the console
-                // tab of the developer tools
                 console.log(result);
             },
             error: function(xhr, resp, text) {
@@ -41,11 +38,8 @@ $('document').ready(function(){
     $("body").on("click", "#depTable td", function (e) {
         var depID = $(this).closest('tr').attr('id');// table row ID
         if($(this).attr('id')==="select") employeesList();
-        if($(this).attr('id')==="edit") editDepartment();
+        if($(this).attr('id')==="edit") editDepartment(depID);
         if($(this).attr('id')==="delete") deleteDep(depID);
-
-        //alert($(this).attr('id'));// td ID
-       // alert($(this).closest('tr').attr('id')); // table row ID
     });
 
     function arrayToTable(tableData) {
@@ -60,36 +54,42 @@ $('document').ready(function(){
         });
         return table;
     }
-    var deleteDep = function (depID){
-        var data = new FormData();
-            data.append( key = 'depID', value = depID );
 
+    var deleteDep = function (depID){
         $.ajax({
             url: '/deleteDep',
             type : "POST",
             dataType : 'json',
-            data : { depId : depID }, // post data || get data
+            data : { depID : depID },
             success : function(result) {
-                // you can see the result from the console
-                // tab of the developer tools
-                alert("Delete complete")
+                alert("Delete complete id:" + result);
                 console.log(result);
             },
             error: function(xhr, resp, text) {
                 console.log(xhr, resp, text);
             }
-        })
+        });
     }
-//bottons
 
-  /*  $("#deleteDep").click(function () {
-        deleteDep();
-    })*/
-    ///---table
+    var editDepartment = function (depID){
+        $.ajax({
+            url: "/editDepartment",
+            type : "GET",
+            dataType : 'json',
+            data : { depID : depID },
+            success : function(result) {
+                console.log(result);
+            },
+            error: function(xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+    }
+
   $("#getDepTable").click( function () {
             departmetList();
         });
-    
+
     var depTable = (function(data){
 
         var table = $('<table id="depTable">' +'<caption>' + '<h2>' + 'Departments' + '</h2>' +'</caption>' + '</table>');

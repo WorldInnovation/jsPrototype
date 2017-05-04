@@ -27,7 +27,7 @@ public class Department {
     @CheckWith(value = OvalValidDepName.class, message = " name exist")
     private String name;
 
-
+    @JsonIgnore
    @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Employee> employees;
 
