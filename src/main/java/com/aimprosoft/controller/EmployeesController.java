@@ -47,7 +47,8 @@ public class EmployeesController extends ExceptionHandlingController {
     }*/
 
     @RequestMapping(value = "/employeeEdit", method = RequestMethod.GET)
-    public String employeeEdit(@RequestParam("depID") Long depID, @RequestParam("empID") Long empID, Model model) throws DaoExp {
+    @ResponseBody
+    public String employeeEdit( Long depID, Long empID, Model model) throws DaoExp {
         model.addAttribute("depID", depID);
         if (null != empID) {
             Employee employee = employeeService.getEmpByID(empID);
@@ -68,8 +69,8 @@ public class EmployeesController extends ExceptionHandlingController {
     }
 
     @RequestMapping(value = "/empSave", method = RequestMethod.POST)
-    //@RequestBody
-    public String empSave(@RequestParam("depID") Long depId, Employee employee, Model model) throws DaoExp {
+    @ResponseBody
+    public String empSave(Long depId, Employee employee, Model model) throws DaoExp {
         try {
             employeeService.updateEmployee(employee, depId);
         } catch (ValidateExp exp) {

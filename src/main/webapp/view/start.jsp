@@ -16,20 +16,20 @@
     <h1>Wellcome</h1>
     <p>to Departments</p>
 </header>
-<main id="content" class="wrapper box">
-    <article id="articleFormLoad">
+<div id="content" class="wrapper box">
+<%--    <article id="articleFormLoad">
         <div id="formPlace"/>
-<%--        <form id="depSave" action="depSave" method="post">
+&lt;%&ndash;        <form id="depSave" action="depSave" method="post">
                     <input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}"
                            value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/><br>
                     <input id="id" type="hidden" name="id"  value="${depId}"/>
         </form>
-        <input id="butSaveDep" type="submit" value="OK">--%>
+        <input id="butSaveDep" type="submit" value="OK">&ndash;%&gt;
     </article>
     <article id="articleTable">
         <table id="test"></table>
-    </article>
-</main>
+    </article>--%>
+</div>
 <script>
 
 </script>
