@@ -40,12 +40,12 @@ form{
     border: 3px;
     background:none;
     border:none;
-    color: #4b8bf5;
-    font-size:24px
+    color: #ff6600;
+    font-size:17px
 }
-form:hover {
-    text-decoration:underline;
-    cursor:pointer
+
+.submit:hover{
+    background: #ff6600;
 }
 a.btn{
     color: #fff; /* цвет текста */

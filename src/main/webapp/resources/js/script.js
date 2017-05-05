@@ -122,6 +122,7 @@ $('document').ready(function () {
     //------------- employees here functions-----------------------------------------
     var showEmpForm = function() {
         $("table").empty();
+        empFormView();
         //$( "#articleFormLoad" ).hide( "slow" );
         $( "#depSave" ).hide( );
     }
@@ -134,6 +135,7 @@ $('document').ready(function () {
             data: {depID: depID},
             success: function (data) {
                 if (data) {
+                    showEmpForm();
                     empTable(data);
                 }else{
                     showEmpForm();
@@ -149,8 +151,8 @@ $('document').ready(function () {
     var empTable = (function (data) {
         //clear black
        /* $('#name').val('');
-        $('#id').val('');
-        $("table").empty();*/
+        $('#id').val('');*/
+        $("table").empty();
 
         var table = $('<table id="depTable">' + '<caption>' + '<h2>' + 'Employees' + '</h2>' + '</caption>' + '</table>');
         var row = $('<tr></tr>');
@@ -195,8 +197,36 @@ $('document').ready(function () {
 
     });
     $('#content').append(table);
+    });
+    //-form employee validation
+
+    var empFormView = function(){
+        var row = $('<form id="signupForm" method="get" action=""> ' +
+                            ' <legend>Employees form </legend>');
+        row.append('<p> <label for="firstname">FirstName</label>' +
+            '<input id="firstname" name="firstname" type="text"> ' +
+            '</p>');
+         row.append('<p> <label for="lastName">SecondName</label>' +
+            '<input id="secondName" name="secondName" type="text"> ' +
+             '</p>');
+         row.append('<p> <label for="grade">Gade</label>' +
+            '<input id="grade" name="grade" type="text"> ' +
+             '</p>');
+         row.append('<p> <label for="birthday">Birthday</label>' +
+            '<input id="birthday" name="birthday" type="text"> ' +
+             '</p>');
+         row.append('<p> <label for="eMail">eMail</label>' +
+            '<input id="eMail" name="eMail" type="email"> ' +
+             '</p>');
+         row.append('<p> <input class="submit" type="submit" value="Submit">' +
+             '</p>');
+         row.append('</form>');
+
+         $('#formPlace').append(row);
+
+    }
+
+
 });
-})
-;
 
 

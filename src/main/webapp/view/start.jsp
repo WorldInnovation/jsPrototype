@@ -18,12 +18,13 @@
 </header>
 <main id="content" class="wrapper box">
     <article id="articleFormLoad">
-        <form id="depSave" action="depSave" method="post">
+        <div id="formPlace"/>
+<%--        <form id="depSave" action="depSave" method="post">
                     <input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}"
                            value="<c:out value="${param['DepName'] eq null ? department.name : param['DepName']}"/>"/><br>
                     <input id="id" type="hidden" name="id"  value="${depId}"/>
         </form>
-        <input id="butSaveDep" type="submit" value="OK">
+        <input id="butSaveDep" type="submit" value="OK">--%>
     </article>
     <article id="articleTable">
         <table id="test"></table>
