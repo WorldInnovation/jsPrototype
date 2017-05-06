@@ -2,6 +2,7 @@ body{
     font: 52.5%/1.6 Verdana, Tahoma, sans-serif;
     color: #444444;
 }
+
 h1, h2 {
     color: #ff6600;
 }
@@ -9,21 +10,15 @@ header, main, footer {
     margin: 30px auto;
     width: 600px;
 }
+
 .my-text {
     color: blue;
     font-size:15px
 }
 
-/*table {
-    border: 3px solid ;
-    border-collapse: collapse;
-    margin-left: 50px;
-
-}*/
-
 td {
     padding: 5px; /* Поля вокруг текста */
-    border: 1px solid #78786a; /* Граница вокруг ячеек */
+    border: 1px solid #E4E4E4; /* Граница вокруг ячеек */
     text-align: right;
     cursor: pointer;
 }
@@ -37,7 +32,7 @@ caption{
 }
 
 form{
-    border: 3px;
+    border: 5px;
     background:none;
     border:none;
     color: #ff6600;
@@ -47,6 +42,7 @@ form{
 .submit:hover{
     background: #ff6600;
 }
+
 a.btn{
     color: #fff; /* цвет текста */
     text-decoration: none; /* убирать подчёркивание у ссылок */
@@ -55,6 +51,7 @@ a.btn{
     padding: .7em 1.5em; /* отступ от текста */
     outline: none; /* убирать контур в Mozilla */
 }
+
 .btn:hover{background: rgb(80,160,80)}
 .btn:active{background: rgb(200,256,200)}
 .message{
@@ -70,15 +67,18 @@ a.btn{
     background-color:#19A15F;
     color:#ffffff;
 }
+
 .error{
     background-color:#d9d9d9;
     color:#d65144;
     margin-left:10px;
 }
+
 .info{
     background-color:#4b8bf5;
     color:#ffffff;
 }
+
 .alert {
     padding: 15px;
     border: 1px solid #d6e9c6;
