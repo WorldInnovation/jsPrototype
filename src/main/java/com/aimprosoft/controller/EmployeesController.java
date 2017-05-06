@@ -70,7 +70,7 @@ public class EmployeesController extends ExceptionHandlingController {
 
     @RequestMapping(value = "/empSave", method = RequestMethod.POST)
     @ResponseBody
-    public String empSave(Long depID, Employee employee, Model model) throws DaoExp {
+    public Employee empSave(Long depID, Employee employee, Model model) throws DaoExp {
         try {
             employeeService.updateEmployee(employee, depID);
         } catch (ValidateExp exp) {
@@ -79,10 +79,10 @@ public class EmployeesController extends ExceptionHandlingController {
             model.addAttribute("depID", depID);
             model.addAttribute("empID", empId);
             model.addAttribute("errorMap", exp.getErrorMap());
-            return "empEdit";
+            return null;
         }
         String sendParam = "?depID=".concat(String.valueOf(depID));
-        return "redirect:/employeesList".concat(sendParam);
+        return employee;
     }
 
 }

@@ -92,23 +92,6 @@ $('document').ready(function () {
         $('#content').append(table);
     });
 
-    /*    $("#butSaveDep").submit( function (){
-     $.ajax({
-     url: '/depSave',
-     type: "POST",
-     dataType: 'json',
-     data: $("#depSave").serialize(), // post data || get data
-     success: function (data) {
-     console.log(data);
-     departmetList();
-     },
-     error: function (xhr, resp, text) {
-     console.log(xhr, resp, text);
-     }
-     })
-     });*/
-
-
     //table click event
     $("body").on("click", "#depTable td", function () {
         var depID = $(this).closest('tr').attr('id');// table row ID
@@ -240,7 +223,7 @@ $('document').ready(function () {
         row.append('<p> <label for="eMail">eMail </label>' +
             '<input id="eMail" name="eMail" type="email"> ' +
             '</p>');
-        row.append('<p> <input class="submit" type="submit" value="Submit">' +
+        row.append('<p> <input id="submit" class="submit" type="submit" value="Submit">' +
             '</p>');
         row.append('<input id="empID" type="hidden" name="empID" value=""/>' +
             '<input id="depID" type="hidden" name="depID" value=""/>');
@@ -255,27 +238,27 @@ $('document').ready(function () {
 
     }
 
-    $("#target").submit(function (event) {
-        alert("Handler for .submit() called.");
-        event.preventDefault();
-    });
-    $("#empSaveForm").submit(function () {
+    $("body").on("submit", "#empSaveForm", function () {
         $.ajax({
             url: '/empSave',
             type: 'post',
             dataType: 'json',
             data: $('#empSaveForm').serialize(),
             success: function (data) {
-                console.log(data);
-                empTable(data);
+                //console.log(data);
+                if (data) {
+                   // employeeList($('#depID').val());
+                   // empTable(data);
+                } else {
+                    alert('Employees list is empty')
+                }
             },
             error: function (xhr, resp, text) {
                 console.log(xhr, resp, text);
             }
         })
-
+        return false;
     });
-
     //table click event
     $("body").on("click", "#empTable td", function () {
       //  var depID = $(this).closest('tr').attr('id');// table row ID
