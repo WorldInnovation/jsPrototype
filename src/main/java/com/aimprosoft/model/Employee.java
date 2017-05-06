@@ -104,7 +104,7 @@ public class Employee implements Serializable {
         return department;
     }
 
-    @JsonIgnore
+
     public void setDepartment(Department department) {
         this.department = department;
     }

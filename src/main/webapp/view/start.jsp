@@ -17,10 +17,9 @@
     <p>to Departments</p>
 </header>
 
-
-<div id="content" class="mainView">
-
-</div>
+<main id="main">
+    <div id="content" class="mainView"/>
+</main>
 <script>
 
 </script>

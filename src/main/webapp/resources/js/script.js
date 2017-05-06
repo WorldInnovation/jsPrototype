@@ -1,8 +1,5 @@
 $('document').ready(function () {
 
-    var depID;
-    var empID;
-
     var departmetList = (function () {
         $.ajax({
             type: "GET",
@@ -58,12 +55,11 @@ $('document').ready(function () {
 
         var rowForm = $('<form id="depSave" action="depSave" method="post">');
         var child = $('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>');
-            child.append('<input id="id" type="hidden" name="id"  value=""/>');
-            child.append('</form>');
+        child.append('<input id="id" type="hidden" name="id"  value=""/>');
+        child.append('</form>');
         rowForm.append(child);
         rowForm.append('<input id="butSaveDep" type="submit" value="OK">');
-            $('#content').append(rowForm);
-
+        $('#content').append(rowForm);
 
 
         var table = $('<table id="depTable">' + '<caption>' + '<h2>' + 'Departments' + '</h2>' + '</caption>' + '</table>');
@@ -96,27 +92,27 @@ $('document').ready(function () {
         $('#content').append(table);
     });
 
-/*    $("#butSaveDep").submit( function (){
-        $.ajax({
-            url: '/depSave',
-            type: "POST",
-            dataType: 'json',
-            data: $("#depSave").serialize(), // post data || get data
-            success: function (data) {
-                console.log(data);
-                departmetList();
-            },
-            error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
-            }
-        })
-    });*/
+    /*    $("#butSaveDep").submit( function (){
+     $.ajax({
+     url: '/depSave',
+     type: "POST",
+     dataType: 'json',
+     data: $("#depSave").serialize(), // post data || get data
+     success: function (data) {
+     console.log(data);
+     departmetList();
+     },
+     error: function (xhr, resp, text) {
+     console.log(xhr, resp, text);
+     }
+     })
+     });*/
 
 
     //table click event
     $("body").on("click", "#depTable td", function () {
         var depID = $(this).closest('tr').attr('id');// table row ID
-        window.depID = $(this).depID;
+       // window.depID = $(this).depID;
         if ($(this).attr('id') === "select") employeeList(depID);
         if ($(this).attr('id') === "edit") editDepartment(depID);
         if ($(this).attr('id') === "delete") deleteDep(depID);
@@ -144,8 +140,8 @@ $('document').ready(function () {
     }
 
     //------------- employees here functions-----------------------------------------
-    var showEmpForm = function(depID) {
-        $("table").empty();
+    var showEmpForm = function (depID) {
+        $("#content").empty();
         empFormView(depID);
         $('#empSaveForm').attr('depID', depID);//set id in form
     }
@@ -157,12 +153,13 @@ $('document').ready(function () {
             dataType: 'json',
             data: {depID: depID},
             success: function (data) {
+                showEmpForm(depID);
                 if (data) {
-                    showEmpForm(depID);
-                        window.depID = $(this).depID;
+
+                    window.depID = $(this).depID;
                     empTable(data);
-                }else{
-                    showEmpForm();
+                } else {
+                    alert('Employees list is empty')
                 }
             },
             error: function (xhr, resp, text) {
@@ -174,9 +171,9 @@ $('document').ready(function () {
 
     var empTable = (function (data) {
         //clear black
-       /* $('#name').val('');
-        $('#id').val('');*/
-        $("table").empty();
+        /* $('#name').val('');
+         $('#id').val('');*/
+        //$("table").empty();
 
         var table = $('<table id="empTable">' + '<caption>' + '<h2>' + 'Employees' + '</h2>' + '</caption>' + '</table>');
         var row = $('<tr></tr>');
@@ -202,7 +199,7 @@ $('document').ready(function () {
                 if (key == 'firstName') {
                     row.append('<td>' + value + '</td>');
                 }
-                if (key == 'secondName'){
+                if (key == 'secondName') {
                     row.append('<td>' + value + '</td>');
                 }
                 if (key == 'grade') {
@@ -216,48 +213,53 @@ $('document').ready(function () {
                     row.append('<td id="edit">' + 'edit' + '</td>');
                     row.append('<td id="delete">' + 'delete' + '</td>');
                 }
-        });
-        table.append(row);
+            });
+            table.append(row);
 
-    });
-    $('#content').append(table);
+        });
+        $('#content').append(table);
     });
     //-form employee validation
 
-    var empFormView = function(depID){
-        var row = $('<form id="empSaveForm" method="get" action="employeeEdit"> ' +
-                            ' <legend>Employees form </legend>');
+    var empFormView = function (depID) {
+        var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
+        var row = $('<fildset></fildset>');
+        row.append(' <legend>Employees form </legend>');
         row.append('<p> <label for="firstName">FirstName </label>' +
             '<input id="firstName" name="firstName" type="text"> ' +
             '</p>');
-         row.append('<p> <label for="secondName">LastName </label>' +
+        row.append('<p> <label for="secondName">LastName </label>' +
             '<input id="secondName" name="secondName" type="text"> ' +
-             '</p>');
-         row.append('<p> <label for="grade">Gade   </label>' +
-            '<input id="grade" name="grade" type="text"> ' +
-             '</p>');
-         row.append('<p> <label for="birthday">Birthday </label>' +
-            '<input id="birthday" name="birthday" type="text"> ' +
-             '</p>');
-         row.append('<p> <label for="eMail">eMail </label>' +
+            '</p>');
+        row.append('<p> <label for="grade">Gade   </label>' +
+            '<input id="grade" name="grade" type="number"> ' +
+            '</p>');
+        row.append('<p> <label for="birthday">Birthday </label>' +
+            '<input id="birthday" name="birthday" type="date"> ' +
+            '</p>');
+        row.append('<p> <label for="eMail">eMail </label>' +
             '<input id="eMail" name="eMail" type="email"> ' +
-             '</p>');
-         row.append('<p> <input class="submit" type="submit" value="Submit">' +
-             '</p>');
-         row.append('    <input id="empID" type="hidden" name="empID" value=""/>' +
-             '<input id="depID" type="hidden" name="depID" value=""/>');
-         row.append('</form>');
+            '</p>');
+        row.append('<p> <input class="submit" type="submit" value="Submit">' +
+            '</p>');
+        row.append('<input id="empID" type="hidden" name="empID" value=""/>' +
+            '<input id="depID" type="hidden" name="depID" value=""/>');
 
-         $('#content').append(row);
 
-        $('#depID').attr('depID', window.depID);
+        firstParent.append(row);
+
+        $('#content').append(firstParent);
+
+       // $('#empSaveForm').attr('depID', depID);
+        $('#depID').val(depID);
 
     }
-    $( "#target" ).submit(function( event ) {
-        alert( "Handler for .submit() called." );
+
+    $("#target").submit(function (event) {
+        alert("Handler for .submit() called.");
         event.preventDefault();
     });
-    $("#empSaveForm").submit( function () {
+    $("#empSaveForm").submit(function () {
         $.ajax({
             url: '/empSave',
             type: 'post',
@@ -276,10 +278,10 @@ $('document').ready(function () {
 
     //table click event
     $("body").on("click", "#empTable td", function () {
-        var depID = $(this).closest('tr').attr('id');// table row ID
-/*        if ($(this).attr('id') === "select") employeeList(depID);
-        if ($(this).attr('id') === "edit") editDepartment(depID);
-        if ($(this).attr('id') === "delete") deleteDep(depID);*/
+      //  var depID = $(this).closest('tr').attr('id');// table row ID
+        /*        if ($(this).attr('id') === "select") employeeList(depID);
+         if ($(this).attr('id') === "edit") editDepartment(depID);
+         if ($(this).attr('id') === "delete") deleteDep(depID);*/
     });
 
 });
