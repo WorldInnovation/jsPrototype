@@ -46,7 +46,7 @@ public class Employee implements Serializable {
     @Email(message = "set@rightMail.format")
     private String eMail;
 
-    @JsonIgnore
+
     @ManyToOne
     @JoinColumn(name = "depID", nullable = false)
     private Department department;
@@ -99,6 +99,7 @@ public class Employee implements Serializable {
     public void seteMail(String eMail) {
         this.eMail = eMail;
     }
+
 
     public Department getDepartment() {
         return department;

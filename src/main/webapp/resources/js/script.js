@@ -1,5 +1,6 @@
 $('document').ready(function () {
 
+    var depID;
     var departmetList = (function () {
         $.ajax({
             type: "GET",
@@ -94,8 +95,8 @@ $('document').ready(function () {
 
     //table click event
     $("body").on("click", "#depTable td", function () {
-        var depID = $(this).closest('tr').attr('id');// table row ID
-       // window.depID = $(this).depID;
+        depID = $(this).closest('tr').attr('id');// table row ID
+        window.depID = $(this).depID;
         if ($(this).attr('id') === "select") employeeList(depID);
         if ($(this).attr('id') === "edit") editDepartment(depID);
         if ($(this).attr('id') === "delete") deleteDep(depID);
@@ -139,7 +140,7 @@ $('document').ready(function () {
                 showEmpForm(depID);
                 if (data) {
 
-                    window.depID = $(this).depID;
+                   // window.depID = $(this).depID;
                     empTable(data);
                 } else {
                     alert('Employees list is empty')
@@ -173,7 +174,6 @@ $('document').ready(function () {
         table.append(row);
         $.each(data, function (k, v) {
             $.each(v, function (key, value) {
-                var idDep;
                 if (key == 'id') {
                     row = $('<tr>').attr('id', value);
                     row.append('</tr>');
@@ -202,6 +202,8 @@ $('document').ready(function () {
         });
         $('#content').append(table);
     });
+
+
     //-form employee validation
 
     var empFormView = function (depID) {
@@ -237,26 +239,32 @@ $('document').ready(function () {
         $('#depID').val(depID);
 
     }
-
-    $("body").on("submit", "#empSaveForm", function () {
+    var seveEmployee = function () {
         $.ajax({
             url: '/empSave',
             type: 'post',
             dataType: 'json',
             data: $('#empSaveForm').serialize(),
             success: function (data) {
-                //console.log(data);
+                console.log(data);
                 if (data) {
-                   // employeeList($('#depID').val());
-                   // empTable(data);
+
+                    alert('Employee save');
                 } else {
-                    alert('Employees list is empty')
+                    alert('Employees list is empty');
                 }
             },
             error: function (xhr, resp, text) {
                 console.log(xhr, resp, text);
+                alert('Employee not save');
             }
-        })
+        });
+
+    }
+
+    $("body").on("submit", "#empSaveForm", function () {
+            seveEmployee();
+       // employeeList(depID);
         return false;
     });
     //table click event
@@ -269,4 +277,36 @@ $('document').ready(function () {
 
 });
 
+/*
+var addEmployeeToTable = function (addEmpl) {
+    var row = ('');
+    $.each(addEmpl, function (key, value) {
+        if (key == 'id') {
+            row = $('<tr>').attr('id', value);
+            row.append('</tr>');
+            row.append('<td>' + value + '</td>');
+        }
+        if (key == 'firstName') {
+            row.append('<td>' + value + '</td>');
+        }
+        if (key == 'secondName') {
+            row.append('<td>' + value + '</td>');
+        }
+        if (key == 'grade') {
+            row.append('<td>' + value + '</td>');
+        }
+        if (key == 'birthday') {
+            row.append('<td>' + value + '</td>');
+        }
+        if (key == 'eMail') {
+            row.append('<td>' + value + '</td>');
+            row.append('<td id="edit">' + 'edit' + '</td>');
+            row.append('<td id="delete">' + 'delete' + '</td>');
+        }
+    });
+    //table.append(row);
 
+    $('#empTable > tbody:last-child').append(row);
+    //   $('#content').append('#empTable');
+}
+*/

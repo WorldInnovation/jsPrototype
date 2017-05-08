@@ -73,16 +73,11 @@ public class EmployeesController extends ExceptionHandlingController {
     public Employee empSave(Long depID, Employee employee, Model model) throws DaoExp {
         try {
             employeeService.updateEmployee(employee, depID);
+            return employee;
         } catch (ValidateExp exp) {
-            Long empId = employee.getId();
-
-            model.addAttribute("depID", depID);
-            model.addAttribute("empID", empId);
-            model.addAttribute("errorMap", exp.getErrorMap());
-            return null;
+                      return null;
         }
-        String sendParam = "?depID=".concat(String.valueOf(depID));
-        return employee;
+
     }
 
 }
