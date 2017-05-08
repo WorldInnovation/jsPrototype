@@ -228,7 +228,7 @@ $('document').ready(function () {
             '</p>');
         row.append('<p> <input id="submit" class="submit" type="submit" value="Submit">' +
             '</p>');
-        row.append('<input id="empID" type="hidden" name="empID" value=""/>' +
+        row.append('<input id="id" type="hidden" name="id" value=""/>' +
             '<input id="depID" type="hidden" name="depID" value=""/>');
 
 
@@ -240,7 +240,7 @@ $('document').ready(function () {
         $('#depID').val(depID);
 
     }
-    var seveEmployee = function () {
+    var saveEmployee = function () {
         $.ajax({
             url: '/empSave',
             type: 'post',
@@ -249,8 +249,8 @@ $('document').ready(function () {
             success: function (data) {
                 console.log(data);
                 if (data) {
-
                     alert('Employee save');
+                    employeeList(depID);
                 } else {
                     alert('Employees list is empty');
                 }
@@ -273,7 +273,29 @@ $('document').ready(function () {
             success: function (result) {
                 alert("Delete id:" + result);
                 console.log(result);
+                employeeList(depID);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+    }
 
+    var editEmp = function (empID) {
+        $.ajax({
+            url: '/employeeEdit',
+            type: "GET",
+            dataType: 'json',
+            data: {depID: depID,
+                empID: empID },
+            success: function (data) {
+                alert("Edit id:" + data.id);
+                $('#id').val(data.id);
+                $('#firstName').val(data.firstName);
+                $('#secondName').val(data.secondName);
+                $('#grade').val(data.grade);
+                $('#birthday').val(data.birthday);
+                $('#eMail').val(data.eMail);
             },
             error: function (xhr, resp, text) {
                 console.log(xhr, resp, text);
@@ -282,8 +304,8 @@ $('document').ready(function () {
     }
 
     $("body").on("submit", "#empSaveForm", function () {
-            seveEmployee();
-        employeeList(depID);
+            saveEmployee();
+        //employeeList(depID);
         return false;
     });
 
@@ -292,10 +314,12 @@ $('document').ready(function () {
         empID = $(this).closest('tr').attr('id');// table row ID
         /*        if ($(this).attr('id') === "select") employeeList(depID);
          */
-        //if ($(this).attr('id') === "edit") editDepartment(depID);
+        if ($(this).attr('id') === "edit") {
+            editEmp(empID);
+        }
         if ($(this).attr('id') === "delete") {
             deleteEmp(empID);
-            employeeList(depID);
+
         }
     });
 
