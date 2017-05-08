@@ -32,19 +32,8 @@ public class EmployeesController extends ExceptionHandlingController {
     public List<Employee> editDepartment(Long depID) throws DaoExp {
         Department department = null;
         List<Employee> employees = employeeService.listEmployee(depID);
-       // if (depID != null) department = departmentService.getDepartmentById(depID);
         return employees;
     }
-
-/*    @RequestMapping(value = "/employeesList", method = RequestMethod.GET)
-    @ResponseBody
-    public String getEmployees( Long depID) throws DaoExp {
-        //List<Employee> employees = null;
-        if (0 != depID) {
-           // employees = employeeService.listEmployee(depID);
-        }
-        return "test";
-    }*/
 
     @RequestMapping(value = "/employeeEdit", method = RequestMethod.GET)
     @ResponseBody
@@ -59,13 +48,13 @@ public class EmployeesController extends ExceptionHandlingController {
     }
 
     @RequestMapping(value = "/empDelete", method = RequestMethod.POST)
-    public String empDelete(@RequestParam("depID") Long depID, @RequestParam("empID") Long empID) throws DaoExp {
+    @ResponseBody
+    public String empDelete(Long depID, Long empID) throws DaoExp {
         if (null != empID) {
             Employee employee = employeeService.getEmpByID(empID);
             employeeService.deleteEmployee(employee);
         }
-        String sendParam = "?depID=".concat(String.valueOf(depID));
-        return "redirect:/employeesList".concat(sendParam);
+        return empID.toString();
     }
 
     @RequestMapping(value = "/empSave", method = RequestMethod.POST)

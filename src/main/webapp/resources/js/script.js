@@ -1,6 +1,7 @@
 $('document').ready(function () {
 
     var depID;
+    var empID;
     var departmetList = (function () {
         $.ajax({
             type: "GET",
@@ -262,17 +263,40 @@ $('document').ready(function () {
 
     }
 
+    var deleteEmp = function (empID) {
+        $.ajax({
+            url: '/empDelete',
+            type: "POST",
+            dataType: 'json',
+            data: {depID: depID,
+                    empID: empID },
+            success: function (result) {
+                alert("Delete id:" + result);
+                console.log(result);
+
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+    }
+
     $("body").on("submit", "#empSaveForm", function () {
             seveEmployee();
-       // employeeList(depID);
+        employeeList(depID);
         return false;
     });
+
     //table click event
     $("body").on("click", "#empTable td", function () {
-      //  var depID = $(this).closest('tr').attr('id');// table row ID
+        empID = $(this).closest('tr').attr('id');// table row ID
         /*        if ($(this).attr('id') === "select") employeeList(depID);
-         if ($(this).attr('id') === "edit") editDepartment(depID);
-         if ($(this).attr('id') === "delete") deleteDep(depID);*/
+         */
+        //if ($(this).attr('id') === "edit") editDepartment(depID);
+        if ($(this).attr('id') === "delete") {
+            deleteEmp(empID);
+            employeeList(depID);
+        }
     });
 
 });
@@ -286,23 +310,7 @@ var addEmployeeToTable = function (addEmpl) {
             row.append('</tr>');
             row.append('<td>' + value + '</td>');
         }
-        if (key == 'firstName') {
-            row.append('<td>' + value + '</td>');
-        }
-        if (key == 'secondName') {
-            row.append('<td>' + value + '</td>');
-        }
-        if (key == 'grade') {
-            row.append('<td>' + value + '</td>');
-        }
-        if (key == 'birthday') {
-            row.append('<td>' + value + '</td>');
-        }
-        if (key == 'eMail') {
-            row.append('<td>' + value + '</td>');
-            row.append('<td id="edit">' + 'edit' + '</td>');
-            row.append('<td id="delete">' + 'delete' + '</td>');
-        }
+
     });
     //table.append(row);
 
