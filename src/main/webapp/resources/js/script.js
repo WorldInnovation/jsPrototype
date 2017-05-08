@@ -155,7 +155,7 @@ $('document').ready(function () {
     };
 
     var empTable = (function (data) {
-        //clear black
+        //clear
         /* $('#name').val('');
          $('#id').val('');*/
         //$("table").empty();
