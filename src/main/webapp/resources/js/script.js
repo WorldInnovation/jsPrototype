@@ -155,11 +155,6 @@ $('document').ready(function () {
     };
 
     var empTable = (function (data) {
-        //clear
-        /* $('#name').val('');
-         $('#id').val('');*/
-        //$("table").empty();
-
         var table = $('<table id="empTable">' + '<caption>' + '<h2>' + 'Employees' + '</h2>' + '</caption>' + '</table>');
         var row = $('<tr></tr>');
 
@@ -204,9 +199,6 @@ $('document').ready(function () {
         $('#content').append(table);
     });
 
-
-    //-form employee validation
-
     var empFormView = function (depID) {
         var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
         var row = $('<fildset></fildset>');
@@ -236,7 +228,6 @@ $('document').ready(function () {
 
         $('#content').append(firstParent);
 
-       // $('#empSaveForm').attr('depID', depID);
         $('#depID').val(depID);
 
     }
@@ -325,20 +316,3 @@ $('document').ready(function () {
 
 });
 
-/*
-var addEmployeeToTable = function (addEmpl) {
-    var row = ('');
-    $.each(addEmpl, function (key, value) {
-        if (key == 'id') {
-            row = $('<tr>').attr('id', value);
-            row.append('</tr>');
-            row.append('<td>' + value + '</td>');
-        }
-
-    });
-    //table.append(row);
-
-    $('#empTable > tbody:last-child').append(row);
-    //   $('#content').append('#empTable');
-}
-*/

@@ -5,6 +5,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/style.css">
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript" src="/resources/js/script.js"> </script>
+<%--<script type="text/javascript" src="/resources/js/depView.js.js"> </script>--%>
+
 
 <html>
 <head>
