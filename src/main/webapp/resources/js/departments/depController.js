@@ -13,7 +13,7 @@ function DepController() {
     };
 
     deleteDepartment = function (event) {
-        var id = event.target.name;
+        var id = event.target.id;
         this.departmentService.delete(id)
             .then(function (response) {
                 this.departmentView.displayDepartments(response);
