@@ -1,4 +1,4 @@
-function depService() {
+function DepService() {
 
     var depID;
 

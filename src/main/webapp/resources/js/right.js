@@ -1,3 +1,21 @@
+(function(){
+    var calc = App.utils.calc;
+    calc.setX(2);
+    calc.setY(3);
+    console.log(calc.add());
+
+    constructor = function () {
+        this.map.set('getAll', function()  {this.DepController.getAll()} );
+    }
+
+    listen  = function() {
+        $('body').on('click', '.listener', function(event) {
+            var valueFromEvent = event.target.value;
+            this.map.get(valueFromEvent)(event);
+        });
+    }
+})();
+
 var App = App || {};
 App.define = function (namespace) {
     var parts = namescpace.split('.'),
@@ -93,21 +111,5 @@ App.utils.calc = (function(){
 })();
 // wrap to function Оборачиваем все в немедленно вызываемую ф-ию,
 // чтобы не создавать лишних глобальных переменных
-(function(){
-    var calc = App.utils.calc;
-    calc.setX(2);
-    calc.setY(3);
-    console.log(calc.add());
 
-    constructor = function () {
-        this.map.set('getAll', function()  {this.depController.getAll()} );
-    }
-
-    listen  = function() {
-        $('body').on('click', '.listener', function(event) {
-            var valueFromEvent = event.target.value;
-        this.map.get(valueFromEvent)(event);
-    });
-    }
-})();
 

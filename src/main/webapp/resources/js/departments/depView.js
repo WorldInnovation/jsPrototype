@@ -1,7 +1,19 @@
-$('document').ready(function () {
+  function DepView() {
 
     var depID;
 
+    var  displayDepForm = function(){
+        $('#name').val('');
+        $('#id').val('');
+        $("#content").empty();
+        var rowForm = $('<form id="depSave" action="depSave" method="post">');
+        var child = $('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>');
+        child.append('<input id="id" type="hidden" name="id"  value=""/>');
+        child.append('</form>');
+        rowForm.append(child);
+        rowForm.append('<input id="butSaveDep" type="submit" value="OK">');
+        $('#content').append(rowForm);
+    }
     var  displayDepartments = function(){
         var depTable = (function (data) {
             //clear black
@@ -61,4 +73,4 @@ $('document').ready(function () {
 
 
 
-});
+};
