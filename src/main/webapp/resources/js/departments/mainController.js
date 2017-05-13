@@ -16,7 +16,7 @@ function MainController(config) {
             var depList = new DepartList(config, router);
         }
 
-        if(state == 'depEmpl'){
+        if(state == 'depForm'){
             var config = {
                 contextDep: context,
                 lickToDep: lickToDep
