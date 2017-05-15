@@ -83,12 +83,12 @@ function ListDep (config, callBack) {
         $('#id').val('');
         $("#content").empty();
 
-        var rowForm = $('<form id="depSave" action="depSave" method="post">');
-        var child = $('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>');
+        var rowForm = $('<form id="depSave" action="editDepartment" method="get">');
+        var child = $('<input id="name" type="hidden" value=""/><br>');
         child.append('<input id="id" type="hidden" name="id"  value=""/>');
         child.append('</form>');
         rowForm.append(child);
-        rowForm.append('<input id="butSaveDep" type="submit" value="OK">');
+        rowForm.append('<input id="butSaveDep" type="submit" value="NewDepartments">');
         $('#content').append(rowForm);
 
 
@@ -129,6 +129,10 @@ function ListDep (config, callBack) {
         if ($(this).attr('id') === "select") callBack('empList');
         if ($(this).attr('id') === "edit") callBack('depEdit');//editDepartment(depID);
         if ($(this).attr('id') === "delete") callBack('deleteDep');
+    });
+
+    $("body").on("submit", "#depSave", function () {
+       // callBack('depEdit');
     });
 }
 
@@ -200,6 +204,7 @@ function DeleteDep(config, callBack) {
             console.log(xhr, resp, text);
         }
     });
+
 }
 function displayDepForm() {
     $('#name').val('');
