@@ -2,7 +2,7 @@
 
     var depID;
 
-    var  displayDepForm = function(){
+   displayDepForm = function(){
         $('#name').val('');
         $('#id').val('');
         $("#content").empty();
@@ -13,8 +13,8 @@
         rowForm.append(child);
         rowForm.append('<input id="butSaveDep" type="submit" value="OK">');
         $('#content').append(rowForm);
-    }
-    var  displayDepartments = function(){
+    };
+   displayDepartments = function(){
         var depTable = (function (data) {
             //clear black
             $('#name').val('');
