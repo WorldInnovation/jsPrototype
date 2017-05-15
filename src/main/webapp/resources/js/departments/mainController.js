@@ -132,7 +132,8 @@ function ListDep (config, callBack) {
     });
 
     $("body").on("submit", "#depSave", function () {
-       // callBack('depEdit');
+        config.depID = '';
+        callBack('depEdit');
     });
 }
 
@@ -140,25 +141,34 @@ function EditDepartment(config, callBack){
     var depID = config.depID;
     var callback = callBack;
     //clear black
-    $.ajax({
-        url: "/editDepartment",
-        type: "GET",
-        dataType: 'json',
-        data: {depID: depID},
-        success: function (data) {
-            console.log(data);
-            $('#name').val(data.name);
-            $('#id').val(data.id);
-        },
-        error: function (xhr, resp, text) {
-            console.log(xhr, resp, text);
-        }
-    });
 
-    $('#name').val('');
-    $('#id').val('');
+
+
+
+    if(depID == "") {
+        console.log('depID is empty');
+        $('#name').val('');
+        $('#id').val('');
+    }
+    else {
+        $.ajax({
+            url: "/editDepartment",
+            type: "GET",
+            dataType: 'json',
+            data: {depID: depID},
+            success: function (data) {
+                console.log(data);
+                $('#name').val(data.name);
+                $('#id').val(data.id);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+    }
+
+
     $("#content").empty();
-
     var rowForm = $('<form id="depSave" action="depSave" method="post">');
     var child = $('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>');
     child.append('<input id="id" type="hidden" name="id"  value=""/>');
@@ -166,6 +176,9 @@ function EditDepartment(config, callBack){
     rowForm.append(child);
     rowForm.append('<input id="butSaveDep" type="submit" value="OK">');
     $('#content').append(rowForm);
+
+
+
 
     $("body").on("submit", "#depSave", function () {
         $.ajax({
