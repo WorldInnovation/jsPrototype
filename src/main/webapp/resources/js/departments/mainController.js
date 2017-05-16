@@ -151,7 +151,7 @@ function EditDepartment(config, callBack){
     var child = $('<div></div>');
     child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
     child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
-    child.append('<input id="butSaveDep" type="button" value="OK">');
+    child.append('<input id="butSaveDep" type="submit" value="OK">');
     rowForm.append(child);
     rowForm.append('</form>');
     $('#content').append(rowForm);
@@ -180,7 +180,7 @@ function EditDepartment(config, callBack){
 
 
 
-    $("#content").on("click", "#depSave", function ()  {
+    $("#content").on("submit", "#depSave", function ()  {
         $.ajax({
             url: '/depSave',
             type: "POST",
