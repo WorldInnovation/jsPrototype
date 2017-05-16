@@ -83,11 +83,11 @@ function ListDep (config, callBack) {
         $('#id').val('');
         $("#content").empty();
 
-        var rowForm = $('<form id="depSave"  method="post">');
+        var rowForm = $('<form id="empty"  method="post">');
         var child = $('<div></div>');
-        child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
+        child.append('<input id="name" type="hidden" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
         child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
-        child.append('<input id="butSaveDep" type="submit" value="OK">');
+        child.append('<input id="butNewDep" type="button" value="new Dep">');
         rowForm.append(child);
         rowForm.append('</form>');
         $('#content').append(rowForm);
@@ -132,7 +132,7 @@ function ListDep (config, callBack) {
         if ($(this).attr('id') === "delete") callBack('deleteDep');
     });
 
-    $("#content").on("submit", "#depSave", function () {
+    $("#content").on("click", "#butNewDep", function () {
         alert('click');
         config.depID = '';
         callBack('depEdit');
@@ -179,21 +179,19 @@ function EditDepartment(config, callBack){
     }
 
 
+    $("#depSave").submit(function()
+      {
 
-    $("#content").on("submit", "#depSave", function ()  {
         $.ajax({
             url: '/depSave',
             type: "POST",
             dataType: 'json',
             data: $("#depSave").serialize(), // post data || get data
             success: function (data) {
-                console.log(data);
-                callBack('depList');
-            },
-            error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
+                alert('save ok');
             }
-        })
+        });
+          callBack('depList');
 
     });
 
