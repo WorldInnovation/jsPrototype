@@ -27,10 +27,10 @@ function MainController(config) {
                 return deleteDep;
                 break;
 
-            case 'saveDep':
+/*            case 'saveDep':
                 var saveDep = new SaveDep(config, router);
                 return saveDep;
-                break;
+                break;*/
 
             case 'empList':
                 var empList = new EmpList(config, router);
@@ -147,7 +147,7 @@ function EditDepartment(config, callBack){
 
     $("#content").empty();
 
-    var rowForm = $('<form id="depSave"  method="post">');
+    var rowForm = $('<form id="depSave"  >');
     var child = $('<div></div>');
     child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
     child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
@@ -179,7 +179,7 @@ function EditDepartment(config, callBack){
     }
 
 
-    $("#depSave").submit(function()
+    $("#butSaveDep").submit(function()
       {
 
         $.ajax({
@@ -268,6 +268,7 @@ function displayDepartments() {
         });
         $('#content').append(table);
     });
+}
 //----------------------------------- employee
     function EmpList(config, callBack){
         var config = config;
@@ -339,6 +340,39 @@ function displayDepartments() {
             });
             $('#content').append(table);
         });
+
+        var empFormView = function (depID) {
+            var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
+            var row = $('<fildset></fildset>');
+            row.append(' <legend>Employees form </legend>');
+            row.append('<p> <label for="firstName">FirstName </label>' +
+                '<input id="firstName" name="firstName" type="text"> ' +
+                '</p>');
+            row.append('<p> <label for="secondName">LastName </label>' +
+                '<input id="secondName" name="secondName" type="text"> ' +
+                '</p>');
+            row.append('<p> <label for="grade">Gade   </label>' +
+                '<input id="grade" name="grade" type="number"> ' +
+                '</p>');
+            row.append('<p> <label for="birthday">Birthday </label>' +
+                '<input id="birthday" name="birthday" type="date"> ' +
+                '</p>');
+            row.append('<p> <label for="eMail">eMail </label>' +
+                '<input id="eMail" name="eMail" type="email"> ' +
+                '</p>');
+            row.append('<p> <input id="submit" class="submit" type="submit" value="Submit">' +
+                '</p>');
+            row.append('<input id="id" type="hidden" name="id" value=""/>' +
+                '<input id="depID" type="hidden" name="depID" value=""/>');
+
+
+            firstParent.append(row);
+
+            $('#content').append(firstParent);
+
+            $('#depID').val(depID);
+
+        }
 
         //table click event
         $("body").on("click", "#empTable td", function () {
@@ -452,7 +486,7 @@ function displayDepartments() {
             });
         });
 
-    }
+
 
 }
 
