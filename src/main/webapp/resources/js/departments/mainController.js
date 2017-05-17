@@ -142,7 +142,7 @@ function EditDepartment(config, callBack){
 
     $("#content").empty();
 
-    var rowForm = $('<form id="depSave">');
+    var rowForm = $('<form id="depSave" onsubmit = "return false">');
     var child = $('<div></div>');
     child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
     child.append('<input id="id" type="hidden" name="id"  value=""/>');
@@ -414,7 +414,7 @@ function displayDepartments() {
 
         $("#content").empty();
 
-        var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
+        var firstParent = $('<form id="empSaveForm" method="post" action="" onsubmit = "return false"></form>');
         var row = $('<fildset></fildset>');
         row.append(' <legend>Employees form </legend>');
         row.append('<p> <label for="firstName">FirstName </label>' +
