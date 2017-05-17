@@ -173,7 +173,6 @@ function EditDepartment(config, callBack){
         $('#id').val('');
     }
 
-   // $("body").on("click", "#butSaveDep", function () {
     $("#depSave").submit(function(){
         alert('send');
         $.ajax({
@@ -182,7 +181,7 @@ function EditDepartment(config, callBack){
             dataType: 'json',
             data: $(this).serialize(),
             success: function (data) {
-                alert(data);
+                $("#depSave")
                 callBack('depList');
             }
 
@@ -374,10 +373,10 @@ function displayDepartments() {
             empID = $(this).closest('tr').attr('id');// table row ID
             config.empID = empID;
             if ($(this).attr('id') === "edit") {
-                callBack('editEmp');
+                callBack('employeeEdit');
             }
             if ($(this).attr('id') === "delete") {
-                callBack('deleteEmp');
+                callBack('empDelete');
             }
         });
     }
@@ -407,33 +406,13 @@ function displayDepartments() {
         });
     }
 //--
-    function employeeEdit(config, callBack){
+    function EmployeeEdit(config, callBack){
         var config = config;
         var callback = callBack;
         var depID = config.depID;
         var empID = config.empID;
 
-        $.ajax({
-            url: '/employeeEdit',
-            type: "GET",
-            dataType: 'json',
-            data: {
-                depID: depID,
-                empID: empID
-            },
-            success: function (data) {
-                alert("Edit id:" + data.id);
-                $('#id').val(data.id);
-                $('#firstName').val(data.firstName);
-                $('#secondName').val(data.secondName);
-                $('#grade').val(data.grade);
-                $('#birthday').val(data.birthday);
-                $('#eMail').val(data.eMail);
-            },
-            error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
-            }
-        });
+        $("#content").empty();
 
         var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
         var row = $('<fildset></fildset>');
@@ -461,27 +440,50 @@ function displayDepartments() {
         firstParent.append(row);
         $('#content').append(firstParent);
 
+        $.ajax({
+            url: '/employeeEdit',
+            type: "GET",
+            dataType: 'json',
+            data: {
+                depID: depID,
+                empID: empID
+            },
+            success: function (data) {
+                alert("Edit id:" + data.id);
+                $('#id').val(data.id);
+                $('#firstName').val(data.firstName);
+                $('#secondName').val(data.secondName);
+                $('#grade').val(data.grade);
+                $('#birthday').val(data.birthday);
+                $('#eMail').val(data.eMail);
+            },
+            error: function (xhr, resp, text) {
+                console.log(xhr, resp, text);
+            }
+        });
+
+
+
         $('#depID').val(depID);
 
-        $("body").on("submit", "#empSaveForm", function () {
+       // $("#empSaveForm").submit( function () {
+            $("body").on("submit", "#empSaveForm", function () {
             $.ajax({
                 url: '/empSave',
                 type: 'post',
                 dataType: 'json',
-                data: $('#empSaveForm').serialize(),
+                data: $(this).serialize(),
                 success: function (data) {
-                    console.log(data);
-                    alert('Employee save');
                     callBack('empList');
+
                 },
                 error: function (xhr, resp, text) {
-                    console.log(xhr, resp, text);
                     alert('Employee not save');
+                    callBack('empList');
                 }
             });
+                return false;
         });
-
-
 
 }
 
