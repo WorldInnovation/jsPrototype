@@ -364,7 +364,6 @@ function displayDepartments() {
             },
             success: function (result) {
 
-                console.log(result);
                 callBack('empList');
             },
             error: function (xhr, resp, text) {
