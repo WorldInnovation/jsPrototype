@@ -83,15 +83,11 @@ function ListDep (config, callBack) {
         $('#id').val('');
         $("#content").empty();
 
-        var rowForm = $('<form id="empty"  method="post">');
-        var child = $('<div></div>');
-        child.append('<input id="name" type="hidden" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
-        child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
-        child.append('<input id="butNewDep" type="button" value="new Dep">');
-        rowForm.append(child);
-        rowForm.append('</form>');
-        $('#content').append(rowForm);
-
+        var myButton = $('<table id="formButton">' + '</table>');
+        var rowButton = $('<tr></tr>');
+        rowButton.append('<th>' + '<input id="butNewDep" class="submit" type="button" value="new Department">' + '</th>');
+        myButton.append(rowButton);
+        $('#content').append(myButton);
 
         var table = $('<table id="depTable">' + '<caption>' + '<h2>' + 'Departments' + '</h2>' + '</caption>' + '</table>');
         var row = $('<tr></tr>');
@@ -132,8 +128,7 @@ function ListDep (config, callBack) {
         if ($(this).attr('id') === "delete") callBack('deleteDep');
     });
 
-    $("#content").on("click", "#butNewDep", function () {
-        alert('click');
+    $("body").on("click", "#butNewDep", function () {
         config.depID = '';
         callBack('depEdit');
     });
@@ -147,10 +142,10 @@ function EditDepartment(config, callBack){
 
     $("#content").empty();
 
-    var rowForm = $('<form id="depSave"  >');
+    var rowForm = $('<form id="depSave">');
     var child = $('<div></div>');
     child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
-    child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
+    child.append('<input id="id" type="hidden" name="id"  value=""/>');
     child.append('<input id="butSaveDep" type="submit" value="OK">');
     rowForm.append(child);
     rowForm.append('</form>');
@@ -178,22 +173,22 @@ function EditDepartment(config, callBack){
         $('#id').val('');
     }
 
-
-    $("#butSaveDep").submit(function()
-      {
-
+   // $("body").on("click", "#butSaveDep", function () {
+    $("#depSave").submit(function(){
+        alert('send');
         $.ajax({
             url: '/depSave',
             type: "POST",
             dataType: 'json',
-            data: $("#depSave").serialize(), // post data || get data
+            data: $(this).serialize(),
             success: function (data) {
-                alert('save ok');
+                alert(data);
+                callBack('depList');
             }
-        });
-          callBack('depList');
 
-    });
+        });
+
+    })
 
 }
 //------------------------------------
