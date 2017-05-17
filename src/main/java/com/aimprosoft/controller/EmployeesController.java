@@ -47,12 +47,13 @@ public class EmployeesController extends ExceptionHandlingController {
 
     @RequestMapping(value = "/empDelete", method = RequestMethod.POST)
     @ResponseBody
-    public String empDelete(Long depID, Long empID) throws DaoExp {
+    public Employee empDelete(Long depID, Long empID) throws DaoExp {
+        Employee employee = null;
         if (null != empID) {
-            Employee employee = employeeService.getEmpByID(empID);
+             employee = employeeService.getEmpByID(empID);
             employeeService.deleteEmployee(employee);
         }
-        return empID.toString();
+        return employee;
     }
 
     @RequestMapping(value = "/empSave", method = RequestMethod.POST)

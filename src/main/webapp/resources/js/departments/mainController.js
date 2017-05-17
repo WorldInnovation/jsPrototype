@@ -27,17 +27,13 @@ function MainController(config) {
                 return deleteDep;
                 break;
 
-/*            case 'saveDep':
-                var saveDep = new SaveDep(config, router);
-                return saveDep;
-                break;*/
-
             case 'empList':
                 var empList = new EmpList(config, router);
                 return empList;
                 break;
 
             case 'employeeEdit':
+                console.log(config.empID);
                 var employeeEdit = new EmployeeEdit(config, router);
                 return employeeEdit;
                 break;
@@ -45,11 +41,6 @@ function MainController(config) {
             case 'empDelete':
                 var empDelete = new EmpDelete(config, router);
                 return;
-                break;
-
-            case 'empSave':
-                var empSave = new EmpSave(config, router);
-                return empSave;
                 break;
 
         }
@@ -145,7 +136,7 @@ function EditDepartment(config, callBack){
     var rowForm = $('<form id="depSave" onsubmit = "return false">');
     var child = $('<div></div>');
     child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
-    child.append('<input id="id" type="hidden" name="id"  value=""/>');
+    child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
     child.append('<input id="butSaveDep" type="submit" value="OK">');
     rowForm.append(child);
     rowForm.append('</form>');
@@ -271,7 +262,11 @@ function displayDepartments() {
 
         var showEmpForm = function (depID) {
             $("#content").empty();
-            empFormView(depID);
+            var myButton = $('<table id="formButton">' + '</table>');
+            var rowButton = $('<tr></tr>');
+            rowButton.append('<th>' + '<input id="butNewEmp" class="submit" type="button" value="new Employee">' + '</th>');
+            myButton.append(rowButton);
+            $('#content').append(myButton);
             $('#empSaveForm').attr('depID', depID);//set id in form
         }
 
@@ -335,39 +330,6 @@ function displayDepartments() {
             $('#content').append(table);
         });
 
-        var empFormView = function (depID) {
-            var firstParent = $('<form id="empSaveForm" method="post" action="empSave"></form>');
-            var row = $('<fildset></fildset>');
-            row.append(' <legend>Employees form </legend>');
-            row.append('<p> <label for="firstName">FirstName </label>' +
-                '<input id="firstName" name="firstName" type="text"> ' +
-                '</p>');
-            row.append('<p> <label for="secondName">LastName </label>' +
-                '<input id="secondName" name="secondName" type="text"> ' +
-                '</p>');
-            row.append('<p> <label for="grade">Gade   </label>' +
-                '<input id="grade" name="grade" type="number"> ' +
-                '</p>');
-            row.append('<p> <label for="birthday">Birthday </label>' +
-                '<input id="birthday" name="birthday" type="date"> ' +
-                '</p>');
-            row.append('<p> <label for="eMail">eMail </label>' +
-                '<input id="eMail" name="eMail" type="email"> ' +
-                '</p>');
-            row.append('<p> <input id="submit" class="submit" type="submit" value="Submit">' +
-                '</p>');
-            row.append('<input id="id" type="hidden" name="id" value=""/>' +
-                '<input id="depID" type="hidden" name="depID" value=""/>');
-
-
-            firstParent.append(row);
-
-            $('#content').append(firstParent);
-
-            $('#depID').val(depID);
-
-        }
-
         //table click event
         $("body").on("click", "#empTable td", function () {
             empID = $(this).closest('tr').attr('id');// table row ID
@@ -379,7 +341,12 @@ function displayDepartments() {
                 callBack('empDelete');
             }
         });
-    }
+
+        $("body").on("click", "#butNewEmp", function () {
+            config.empID = '';
+            callBack('employeeEdit');
+        });
+}
 //--
     function EmpDelete(config, callBack){
         var config = config;
@@ -396,14 +363,15 @@ function displayDepartments() {
                 empID: empID
             },
             success: function (result) {
-                alert("Delete id:" + result);
+
                 console.log(result);
                 callBack('empList');
             },
             error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
+                //console.log(xhr, resp, text);
             }
         });
+
     }
 //--
     function EmployeeEdit(config, callBack){
@@ -440,34 +408,41 @@ function displayDepartments() {
         firstParent.append(row);
         $('#content').append(firstParent);
 
-        $.ajax({
-            url: '/employeeEdit',
-            type: "GET",
-            dataType: 'json',
-            data: {
-                depID: depID,
-                empID: empID
-            },
-            success: function (data) {
-                alert("Edit id:" + data.id);
-                $('#id').val(data.id);
-                $('#firstName').val(data.firstName);
-                $('#secondName').val(data.secondName);
-                $('#grade').val(data.grade);
-                $('#birthday').val(data.birthday);
-                $('#eMail').val(data.eMail);
-            },
-            error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
-            }
-        });
-
-
+        if($.isNumeric(empID) ) {
+            $.ajax({
+                url: '/employeeEdit',
+                type: "GET",
+                dataType: 'json',
+                data: {
+                    depID: depID,
+                    empID: empID
+                },
+                success: function (data) {
+                    $('#id').val(data.id);
+                    $('#firstName').val(data.firstName);
+                    $('#secondName').val(data.secondName);
+                    $('#grade').val(data.grade);
+                    $('#birthday').val(data.birthday);
+                    $('#eMail').val(data.eMail);
+                },
+                error: function (xhr, resp, text) {
+                    console.log(xhr, resp, text);
+                }
+            });
+        }else{
+            console.log('empID is empty');
+            $('#id').val('');
+            $('#firstName').val('');
+            $('#secondName').val('');
+            $('#grade').val('');
+            $('#birthday').val('');
+            $('#eMail').val('');
+        }
 
         $('#depID').val(depID);
 
-       // $("#empSaveForm").submit( function () {
-            $("body").on("submit", "#empSaveForm", function () {
+        $("#empSaveForm").submit( function () {
+           // $("body").on("submit", "#empSaveForm", function () {
             $.ajax({
                 url: '/empSave',
                 type: 'post',
@@ -482,7 +457,7 @@ function displayDepartments() {
                     callBack('empList');
                 }
             });
-                return false;
+
         });
 
 }
