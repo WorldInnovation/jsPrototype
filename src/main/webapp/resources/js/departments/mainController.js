@@ -1,7 +1,5 @@
 function MainController(config) {
     var context = config.context;
-    var depID;
-    var empID;
 
     var initApp = function () {
         console.log('start');
@@ -16,7 +14,6 @@ function MainController(config) {
                 break;
 
             case 'depEdit':
-                console.log(config.depID);
                 var editDep = new EditDepartment(config, router);
                 return editDep;
                 break;
@@ -32,7 +29,6 @@ function MainController(config) {
                 break;
 
             case 'employeeEdit':
-                console.log(config.empID);
                 var employeeEdit = new EmployeeEdit(config, router);
                 return employeeEdit;
                 break;
@@ -49,7 +45,7 @@ function MainController(config) {
 }
 
 function ListDep (config, callBack) {
-    var config = config;
+   // var config = config;
 
     $.ajax({
         type: "GET",
@@ -120,7 +116,7 @@ function ListDep (config, callBack) {
 }
 
 function EditDepartment(config, callBack){
-    var config = config;
+ //   var config = config;
     var depID = config.depID;
 
     $("#content").empty();
@@ -146,12 +142,11 @@ function EditDepartment(config, callBack){
                 $('#id').val(data.id);
             },
             error: function (xhr, resp, text) {
-                console.log(xhr, resp, text);
             }
         });
     }
     else {
-        console.log('depID is empty');
+        console.log('new Dep');
         $('#name').val('');
         $('#id').val('');
     }
@@ -163,7 +158,6 @@ function EditDepartment(config, callBack){
             dataType: 'json',
             data: $(this).serialize(),
             success: function (data) {
-                //$("#depSave")
                 callBack('depList');
             }
         });
@@ -172,9 +166,7 @@ function EditDepartment(config, callBack){
 }
 //--
 function DeleteDep(config, callBack) {
-    var config = config;
     var depID = config.depID;
-    var callback = callBack;
 
     $.ajax({
         url: '/deleteDep',
@@ -182,12 +174,10 @@ function DeleteDep(config, callBack) {
         dataType: 'json',
         data: {depID: depID},
         success: function (result) {
-            alert("Delete id:" + result);
-            console.log(result);
+            console.log("Delete id:" + result);
             callBack('depList');
         },
         error: function (xhr, resp, text) {
-            console.log(xhr, resp, text);
         }
     });
 
@@ -246,8 +236,8 @@ function displayDepartments() {
 }
 //----------------------------------- employee
     function EmpList(config, callBack){
-        var config = config;
-        var callback = callBack;
+     //   var config = config;
+  //      var callback = callBack;
         var depID = config.depID;
 
         var showEmpForm = function (depID) {
@@ -321,7 +311,7 @@ function displayDepartments() {
         });
 
         //table click event
-        $("body").on("click", "#empTable td", function () {
+        $('#content').on("click", "#empTable td", function () {
             empID = $(this).closest('tr').attr('id');// table row ID
             config.empID = empID;
             if ($(this).attr('id') === "edit") {
@@ -332,7 +322,7 @@ function displayDepartments() {
             }
         });
 
-        $("body").on("click", "#butNewEmp", function () {
+        $('#content').on("click", "#butNewEmp", function () {
             config.empID = '';
             callBack('employeeEdit');
         });

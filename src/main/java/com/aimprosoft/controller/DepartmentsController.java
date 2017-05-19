@@ -32,7 +32,6 @@ public class DepartmentsController extends ExceptionHandlingController {
         if (depID != null) department = departmentService.getDepartmentById(depID);
         return department;
     }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome() {
         return "start";
