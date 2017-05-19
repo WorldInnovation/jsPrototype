@@ -2,6 +2,6 @@
 
 var welcome = require('./welcome');
 
-welcome('to paradise');
+welcome('dfa');
 
 exports.welcome = welcome;
