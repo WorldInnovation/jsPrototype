@@ -41,11 +41,8 @@ function MainController(config) {
                 var empDelete = new EmpDelete(config, router);
                 return;
                 break;
-
         }
-
     };
-
     return {
         init: initApp
     }
@@ -53,8 +50,6 @@ function MainController(config) {
 
 function ListDep (config, callBack) {
     var config = config;
-    var callback = callBack;
-
 
     $.ajax({
         type: "GET",
@@ -109,7 +104,7 @@ function ListDep (config, callBack) {
         $('#content').append(table);
     });
 
-    $("body").on("click", "#depTable td", function () {
+    $("#content").on("click", "#depTable td", function () {
         depID = $(this).closest('tr').attr('id');// table row ID
         config.depID = depID;
         window.depID = $(this).depID;
@@ -118,7 +113,7 @@ function ListDep (config, callBack) {
         if ($(this).attr('id') === "delete") callBack('deleteDep');
     });
 
-    $("body").on("click", "#butNewDep", function () {
+    $("#content").on("click", "#butNewDep", function () {
         config.depID = '';
         callBack('depEdit');
     });
@@ -127,8 +122,6 @@ function ListDep (config, callBack) {
 function EditDepartment(config, callBack){
     var config = config;
     var depID = config.depID;
-    var callback = callBack;
-    //clear black
 
     $("#content").empty();
 
@@ -164,23 +157,20 @@ function EditDepartment(config, callBack){
     }
 
     $("#depSave").submit(function(){
-        alert('send');
         $.ajax({
             url: '/depSave',
             type: "POST",
             dataType: 'json',
             data: $(this).serialize(),
             success: function (data) {
-                $("#depSave")
+                //$("#depSave")
                 callBack('depList');
             }
-
         });
-
     })
 
 }
-//------------------------------------
+//--
 function DeleteDep(config, callBack) {
     var config = config;
     var depID = config.depID;
@@ -202,6 +192,7 @@ function DeleteDep(config, callBack) {
     });
 
 }
+
 function displayDepForm() {
     $('#name').val('');
     $('#id').val('');
@@ -443,11 +434,11 @@ function displayDepartments() {
             rules: {
                 firstName: {
                     required: true,
-                    minlenght: 2
+                    minlength: 2
                 },
                 secondName: {
                     required: true,
-                    minlenght: 2
+                    minlength: 2
                 },
                 grade: {
                     required: true,
@@ -479,10 +470,8 @@ function displayDepartments() {
                       callBack('empList');
                   }
               });
-
       }
-
-        });
+  });
 
 }
 
