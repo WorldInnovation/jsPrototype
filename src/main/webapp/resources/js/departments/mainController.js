@@ -45,7 +45,6 @@ function MainController(config) {
 }
 
 function ListDep (config, callBack) {
-   // var config = config;
 
     $.ajax({
         type: "GET",
@@ -116,7 +115,6 @@ function ListDep (config, callBack) {
 }
 
 function EditDepartment(config, callBack){
- //   var config = config;
     var depID = config.depID;
 
     $("#content").empty();
@@ -236,8 +234,6 @@ function displayDepartments() {
 }
 //----------------------------------- employee
     function EmpList(config, callBack){
-     //   var config = config;
-  //      var callback = callBack;
         var depID = config.depID;
 
         var showEmpForm = function (depID) {
@@ -329,8 +325,6 @@ function displayDepartments() {
 }
 //--
     function EmpDelete(config, callBack){
-        var config = config;
-        var callback = callBack;
         var depID = config.depID;
         var empID = config.empID;
 
@@ -354,8 +348,6 @@ function displayDepartments() {
     }
 //--
     function EmployeeEdit(config, callBack){
-        var config = config;
-        var callback = callBack;
         var depID = config.depID;
         var empID = config.empID;
 
