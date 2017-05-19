@@ -7,6 +7,7 @@
     <%--<script type="text/javascript" src="/resources/js/departments/depController.js"> </script>
     <script type="text/javascript" src="/resources/js/departments/depView.js"> </script>--%>
 <script type="text/javascript" src="/resources/js/departments/mainController.js"> </script>
+<script type="text/javascript" src="/resources/js/jquery.validate.js"> </script>
 
 
 <%--<script type="text/javascript" src="/app/bandle.js"> </script>--%>

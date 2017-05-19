@@ -1,6 +1,5 @@
 function MainController(config) {
     var context = config.context;
-    var lickToDep = config.dfg;
     var depID;
     var empID;
 
@@ -387,7 +386,7 @@ function displayDepartments() {
         row.append('<p> <label for="firstName">FirstName </label>' +
             '<input id="firstName" name="firstName" type="text"> ' +
             '</p>');
-        row.append('<p> <label for="secondName">LastName </label>' +
+        row.append('<p> <label for="secondName">SecondName</label>' +
             '<input id="secondName" name="secondName" type="text"> ' +
             '</p>');
         row.append('<p> <label for="grade">Gade   </label>' +
@@ -440,26 +439,53 @@ function displayDepartments() {
 
         $('#depID').val(depID);
 
-        $("#empSaveForm").submit( function () {
-           // $("body").on("submit", "#empSaveForm", function () {
-            $.ajax({
-                url: '/empSave',
-                type: 'post',
-                dataType: 'json',
-                data: $(this).serialize(),
-                success: function (data) {
-                    callBack('empList');
-
+  $('#empSaveForm').validate({
+            rules: {
+                firstName: {
+                    required: true,
+                    minlenght: 2
                 },
-                error: function (xhr, resp, text) {
-                    alert('Employee not save');
-                    callBack('empList');
+                secondName: {
+                    required: true,
+                    minlenght: 2
+                },
+                grade: {
+                    required: true,
+                    number: true
+                },
+                eMail: {
+                    required: true,
+                    email: true
                 }
-            });
+            },
+            messages: {
+                firstName: "Enter your firstname min 2 chars",
+                secondName: "Enter your secondname min 2 chars",
+                grade: "Enter a valid number",
+                eMail: "Enter correct email"
+            },
+      submitHandler: function () {
+              $.ajax({
+                  url: '/empSave',
+                  type: 'post',
+                  dataType: 'json',
+                  data: $("#empSaveForm").serialize(),
+                  success: function (data) {
+                      callBack('empList');
+
+                  },
+                  error: function (xhr, resp, text) {
+                      alert('Employee not save');
+                      callBack('empList');
+                  }
+              });
+
+      }
 
         });
 
 }
+
 
 
 /*
