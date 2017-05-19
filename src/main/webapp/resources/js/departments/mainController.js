@@ -45,6 +45,8 @@ function MainController(config) {
 }
 
 function ListDep (config, callBack) {
+    var configDep = config;
+    var changeState = callBack;
 
     $.ajax({
         type: "GET",
@@ -103,19 +105,22 @@ function ListDep (config, callBack) {
         depID = $(this).closest('tr').attr('id');// table row ID
         config.depID = depID;
         window.depID = $(this).depID;
-        if ($(this).attr('id') === "select") callBack('empList');
-        if ($(this).attr('id') === "edit") callBack('depEdit');//editDepartment(depID);
-        if ($(this).attr('id') === "delete") callBack('deleteDep');
+        $("#content").off();
+        if ($(this).attr('id') === "select") changeState('empList');
+        if ($(this).attr('id') === "edit") changeState('depEdit');//editDepartment(depID);
+        if ($(this).attr('id') === "delete") changeState('deleteDep');
     });
 
     $("#content").on("click", "#butNewDep", function () {
+        $("#content").off();
         config.depID = '';
-        callBack('depEdit');
+        changeState('depEdit');
     });
 }
 
 function EditDepartment(config, callBack) {
     var depID = config.depID;
+    var changeState = callBack;
 
     $("#content").empty();
 
@@ -154,10 +159,27 @@ function EditDepartment(config, callBack) {
             name: {
                 required: true,
                 minlength: 3
+            },
+            remote : {
+                url: "/getDepName",
+                type: "post",
+                data: {
+                    id: function() {
+                    return $('#id').val();
+                    },
+                    name: function () {
+                        return $("#name").val();
+                    }
+                }
+
             }
         },
         messages: {
-            name: "Enter your department name min 3 chars"
+            name: {
+                required: "Type name, please",
+                minlength: "Name is low 3",
+                remote: "This name exist"
+            }
 
         },
         submitHandler: function () {
@@ -167,7 +189,7 @@ function EditDepartment(config, callBack) {
                 dataType: 'json',
                 data: $('#depSave').serialize(),
                 success: function (data) {
-                    callBack('depList');
+                    changeState('depList');
                 }
             });
         }
@@ -176,6 +198,7 @@ function EditDepartment(config, callBack) {
 
 function DeleteDep(config, callBack) {
     var depID = config.depID;
+    var changeState = callBack;
 
     $.ajax({
         url: '/deleteDep',
@@ -184,7 +207,7 @@ function DeleteDep(config, callBack) {
         data: {depID: depID},
         success: function (result) {
             console.log("Delete id:" + result);
-            callBack('depList');
+            changeState('depList');
         },
         error: function (xhr, resp, text) {
         }
@@ -246,6 +269,7 @@ function displayDepartments() {
 //----------------------------------- employee
     function EmpList(config, callBack){
         var depID = config.depID;
+        var changeState = callBack;
 
         var showEmpForm = function (depID) {
             $("#content").empty();
@@ -317,27 +341,29 @@ function displayDepartments() {
             $('#content').append(table);
         });
 
-        //table click event
         $('#content').on("click", "#empTable td", function () {
             empID = $(this).closest('tr').attr('id');// table row ID
             config.empID = empID;
+            $("#content").off();
             if ($(this).attr('id') === "edit") {
-                callBack('employeeEdit');
+                changeState('employeeEdit');
             }
             if ($(this).attr('id') === "delete") {
-                callBack('empDelete');
+                changeState('empDelete');
             }
         });
 
         $('#content').on("click", "#butNewEmp", function () {
+            $("#content").off();
             config.empID = '';
-            callBack('employeeEdit');
+            changeState('employeeEdit');
         });
 }
 //--
     function EmpDelete(config, callBack){
         var depID = config.depID;
         var empID = config.empID;
+        var changeState = callBack;
 
         $.ajax({
             url: '/empDelete',
@@ -349,7 +375,7 @@ function displayDepartments() {
             },
             success: function (result) {
 
-                callBack('empList');
+                changeState('empList');
             },
             error: function (xhr, resp, text) {
                 //console.log(xhr, resp, text);
@@ -361,6 +387,7 @@ function displayDepartments() {
     function EmployeeEdit(config, callBack){
         var depID = config.depID;
         var empID = config.empID;
+        var changeState = callBack;
 
         $("#content").empty();
 
@@ -455,116 +482,15 @@ function displayDepartments() {
                   dataType: 'json',
                   data: $("#empSaveForm").serialize(),
                   success: function (data) {
-                      callBack('empList');
+                      changeState('empList');
 
                   },
                   error: function (xhr, resp, text) {
                       alert('Employee not save');
-                      callBack('empList');
+                      changeState('empList');
                   }
               });
       }
   });
 
 }
-
-
-
-/*
- validateDepartment() {
- $('#departmentForm').validate({
- rules: {
- name: {
- required: true,
- minlength: 5,
- maxlength: 10,
- remote: {
- url: "/uniqueName",
- type: "POST",
- data: {
- id: () => {
- return $('#id').val();
- },
- name: () => {
- return $('#name').val();
- }
- }
- }
- }
- },
- messages: {
- name: {
- required: "Type name, please",
- minlength: "Your password must be at least 5 characters long",
- maxlength: "Your password must not be longer than 10 characters",
- remote: "This name is already used!"
- }
- },
- submitHandler: () => {
- $( "#saveDepartment" ).addClass('listener').trigger( 'click' );
- }
- });
- };
-
- validateEmployee() {
- $('#employeeForm').validate({
- rules: {
- name: {
- required: true,
- minlength: 5,
- maxlength: 10
- },
- email: {
- required: true,
- email: true,
- remote: {
- url: "/uniqueEmail",
- type: "POST",
- data: {
- id: () => {
- return $('#id').val();
- },
- email: () => {
- return $('#email').val();
- }
- }
- }
- },
- salary: {
- required: true,
- digits: true,
- },
- birthDate: {
- required: true,
- date: true
- }
- },
- messages: {
- name: {
- required: "Type name, please",
- minlength: "Your password must be at least 5 characters long",
- maxlength: "Your password must not be longer than 10 characters",
- },
- email: {
- required: "Type email, please",
- email: "Type correct email!!",
- remote: "This email is already used!"
- },
- salary: {
- required: "Input salary, please",
- digits: "Type only digits!",
- },
- birthDate: {
- required: "Type birthday, please",
- date: "input correct date"
- }
- },
- submitHandler: () => {
- $("#saveEmployee").addClass('listener').trigger('click');
- }
- });
- };
- */
-
-
-

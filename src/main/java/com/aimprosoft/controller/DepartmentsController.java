@@ -32,7 +32,7 @@ public class DepartmentsController extends ExceptionHandlingController {
         return department;
     }
 
-    @RequestMapping(value = "/getDepName", method = RequestMethod.GET)
+    @RequestMapping(value = "/getDepName", method = RequestMethod.POST)
     @ResponseBody
     public Department getDepName(String depName) throws DaoExp {
         Department department = null;
