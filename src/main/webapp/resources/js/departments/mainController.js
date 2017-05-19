@@ -114,21 +114,21 @@ function ListDep (config, callBack) {
     });
 }
 
-function EditDepartment(config, callBack){
+function EditDepartment(config, callBack) {
     var depID = config.depID;
 
     $("#content").empty();
 
     var rowForm = $('<form id="depSave" onsubmit = "return false">');
     var child = $('<div></div>');
-    child.append('<input id="name" type="text" name="name" placeholder="Enter department" pattern="[A-Za-z]{3,}" value=""/><br>')
+    child.append('<input id="name" type="text" name="name" placeholder="Enter department" value=""/><br>')
     child.append('<input id="id" type="hidden" name="id"  value=""/><br>');
     child.append('<input id="butSaveDep" type="submit" value="OK">');
     rowForm.append(child);
     rowForm.append('</form>');
     $('#content').append(rowForm);
 
-    if($.isNumeric(depID) ) {
+    if ($.isNumeric(depID)) {
         $.ajax({
             url: "/editDepartment",
             type: "GET",
@@ -148,21 +148,32 @@ function EditDepartment(config, callBack){
         $('#name').val('');
         $('#id').val('');
     }
-
-    $("#depSave").submit(function(){
-        $.ajax({
-            url: '/depSave',
-            type: "POST",
-            dataType: 'json',
-            data: $(this).serialize(),
-            success: function (data) {
-                callBack('depList');
+//----------
+    $('#depSave').validate({
+        rules: {
+            name: {
+                required: true,
+                minlength: 3
             }
-        });
-    })
+        },
+        messages: {
+            name: "Enter your department name min 3 chars"
 
+        },
+        submitHandler: function () {
+            $.ajax({
+                url: '/depSave',
+                type: "POST",
+                dataType: 'json',
+                data: $('#depSave').serialize(),
+                success: function (data) {
+                    callBack('depList');
+                }
+            });
+        }
+    });
 }
-//--
+
 function DeleteDep(config, callBack) {
     var depID = config.depID;
 

@@ -45,8 +45,16 @@ public class DepartmentServiceImpl implements DepartmentService {
 
     @Transactional(readOnly = true)
     @Override
+    public Department getDepByName(String depName) throws DaoExp {
+        return departmentDAO.getByName(depName);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<Department> getAll() throws DaoExp {
         return  departmentDAO.getAll();
     }
+
+
 
 }

@@ -13,4 +13,5 @@ public interface DepartmentService {
     void saveOrUpdateDepartment(Department department) throws ValidateExp, DaoExp;
     void deleteDepartment (Long longId) throws DaoExp;
     Department getDepartmentById(Long depId) throws DaoExp;
+    Department getDepByName(String depName) throws DaoExp;
 }

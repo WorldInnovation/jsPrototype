@@ -6,7 +6,6 @@ import com.aimprosoft.model.Department;
 import com.aimprosoft.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,7 +20,7 @@ public class DepartmentsController extends ExceptionHandlingController {
     @RequestMapping(value = "/deps", method = RequestMethod.GET)
     @ResponseBody
     public List<Department> getUsers() throws DaoExp {
-        List<Department>  departments = departmentService.getAll();
+        List<Department> departments = departmentService.getAll();
         return departments;
     }
 
@@ -32,6 +31,15 @@ public class DepartmentsController extends ExceptionHandlingController {
         if (depID != null) department = departmentService.getDepartmentById(depID);
         return department;
     }
+
+    @RequestMapping(value = "/getDepName", method = RequestMethod.GET)
+    @ResponseBody
+    public Department getDepName(String depName) throws DaoExp {
+        Department department = null;
+        if (depName != null) department = departmentService.getDepByName(depName);
+        return department;
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String printWelcome() {
         return "start";
@@ -47,13 +55,13 @@ public class DepartmentsController extends ExceptionHandlingController {
             return null;
         }
     }
+
     @ResponseBody
     @RequestMapping(value = "/deleteDep", method = RequestMethod.POST)
-    public String depDelete( Long depID) throws DaoExp {
+    public String depDelete(Long depID) throws DaoExp {
         departmentService.getDepartmentById(depID);
         departmentService.deleteDepartment(depID);
         return depID.toString();
     }
 
 }
-
