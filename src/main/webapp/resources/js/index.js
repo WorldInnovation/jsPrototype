@@ -1,14 +1,22 @@
-function MainController(config) {
+'use strict';
+
+$('#item'); // <= just works
+jQuery('#item');
+
+module.exports = function MainController(config) {
     var context = config.context;
+    var depID = config.depID;
+    var empID = config.empID;
 
     var initApp = function () {
         console.log('start');
         router('depList');
+
     };
 
     var router = function (state) {
         switch (state) {
-            case 'depList':
+            case 'depList':1
                 var depList = new ListDep(config, router);
                 return depList;
                 break;
@@ -47,6 +55,8 @@ function MainController(config) {
 function ListDep (config, callBack) {
     var configDep = config;
     var changeState = callBack;
+    var depID = config.depID;
+
 
     $.ajax({
         type: "GET",
@@ -269,6 +279,7 @@ function displayDepartments() {
 //----------------------------------- employee
     function EmpList(config, callBack){
         var depID = config.depID;
+        var empID = config.empID;
         var changeState = callBack;
 
         var showEmpForm = function (depID) {
@@ -439,7 +450,7 @@ function displayDepartments() {
                 }
             });
         }else{
-            console.log('empID is empty');
+            console.log('new Emp edit');
             $('#id').val('');
             $('#firstName').val('');
             $('#secondName').val('');

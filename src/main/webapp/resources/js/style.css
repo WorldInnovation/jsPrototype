@@ -1,0 +1,89 @@
+body{
+    font: 52.5%/1.6 Verdana, Tahoma, sans-serif;
+    color: #444444;
+}
+
+h1, h2 {
+    color: #ff6600;
+}
+header, main, footer {
+    margin: 30px auto;
+    width: 600px;
+}
+
+.my-text {
+    color: blue;
+    font-size:15px
+}
+
+td {
+    padding: 5px; /* Поля вокруг текста */
+    border: 1px solid #E4E4E4; /* Граница вокруг ячеек */
+    text-align: right;
+    cursor: pointer;
+}
+
+td:hover {
+    background: #ff6600;
+}
+
+caption{
+    caption-side: top;
+}
+
+form{
+    border: 5px;
+    background:none;
+    border:none;
+    color: #ff6600;
+    font-size:17px
+}
+
+.submit:hover{
+    background: #ff6600;
+}
+
+a.btn{
+    color: #fff; /* цвет текста */
+    text-decoration: none; /* убирать подчёркивание у ссылок */
+    user-select: none; /* убирать выделение текста */
+    background: rgb(128,128,128); /* фон кнопки */
+    padding: .7em 1.5em; /* отступ от текста */
+    outline: none; /* убирать контур в Mozilla */
+}
+
+.btn:hover{background: rgb(80,160,80)}
+.btn:active{background: rgb(200,256,200)}
+.message{
+    color:#747474;
+    background-color:#E4E4E4;
+    border:1px solid #323232;
+    font-size:20px;
+    margin-left:3px;
+    margin-right:3px;
+    margin-bottom:3px;
+}
+.success{
+    background-color:#19A15F;
+    color:#ffffff;
+}
+
+.error{
+    background-color:#d9d9d9;
+    color:#d65144;
+    margin-left:10px;
+}
+
+.info{
+    background-color:#4b8bf5;
+    color:#ffffff;
+}
+
+.alert {
+    padding: 15px;
+    border: 1px solid #d6e9c6;
+    border-radius: 4px;
+    color: #3c763d;
+    background-color: #dff0d8;
+}
+
