@@ -1,7 +1,6 @@
 'use strict';
 
-$('#item'); // <= just works
-jQuery('#item');
+
 
 module.exports = function MainController(config) {
     var context = config.context;
@@ -16,7 +15,7 @@ module.exports = function MainController(config) {
 
     var router = function (state) {
         switch (state) {
-            case 'depList':1
+            case 'depList':
                 var depList = new ListDep(config, router);
                 return depList;
                 break;
